@@ -1178,3 +1178,105 @@ input[type="search"] {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---- Mobile: app-style fixed bottom tab bar + touch tweaks (phones only) ---- */
+@media (max-width: 700px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Sidebar shrinks to a slim brand + exam-pattern strip at the top */
+  .sidebar {
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px 14px 10px;
+  }
+
+  /* The nav leaves the sidebar and becomes a fixed bottom tab bar */
+  .nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    background: #18231f;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.18);
+  }
+
+  .nav-button {
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    min-height: 52px;
+    padding: 6px 2px;
+    font-size: 11px;
+    border-radius: 10px;
+  }
+
+  .nav-button.is-active {
+    background: #243a34;
+    color: #aef0e4;
+  }
+
+  /* Keep page content clear of the fixed bottom bar */
+  .main {
+    padding-bottom: 84px;
+  }
+
+  /* Compact the exam-pattern box so content starts higher */
+  .exam-box {
+    margin-top: 0;
+    padding: 12px 14px;
+  }
+
+  .exam-stat {
+    margin: 4px 0 8px;
+  }
+
+  .exam-stat strong {
+    font-size: 26px;
+  }
+
+  /* Full-width header actions for easy thumbs */
+  .top-actions {
+    width: 100%;
+  }
+
+  .top-actions .primary-button,
+  .top-actions .ghost-button {
+    flex: 1 1 auto;
+  }
+
+  /* 16px on form controls and buttons prevents iOS zoom-on-focus */
+  select,
+  input,
+  .primary-button,
+  .secondary-button,
+  .ghost-button {
+    font-size: 16px;
+  }
+
+  /* Quiz buttons stretch to comfortable tap targets */
+  .button-row .primary-button,
+  .button-row .secondary-button {
+    flex: 1 1 auto;
+  }
+
+  /* Quiz footer: Skip on its own row, Prev/Next spread on the next */
+  .quiz-footer {
+    flex-wrap: wrap;
+  }
+
+  #skipQuestionBtn {
+    flex: 1 1 100%;
+  }
+
+  .quiz-footer .button-row {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+}
