@@ -7,7 +7,8 @@
     completed: "nism-ra-completed-v1",
     plan: "nism-ra-plan-v1",
     scores: "nism-ra-scores-v1",
-    mistakes: "nism-ra-mistakes-v1"
+    mistakes: "nism-ra-mistakes-v1",
+    theme: "nism-ra-theme-v1"
   };
 
   const state = {
@@ -79,8 +80,34 @@
     }
   }
 
+  function isDarkTheme() {
+    return document.documentElement.getAttribute("data-theme") === "dark";
+  }
+
+  function updateThemeButton() {
+    const btn = $("#themeToggle");
+    if (!btn) return;
+    const dark = isDarkTheme();
+    btn.textContent = dark ? "Light mode" : "Dark mode";
+    btn.setAttribute("aria-pressed", String(dark));
+  }
+
+  function toggleTheme() {
+    const next = isDarkTheme() ? "light" : "dark";
+    if (next === "dark") document.documentElement.setAttribute("data-theme", "dark");
+    else document.documentElement.removeAttribute("data-theme");
+    try {
+      localStorage.setItem(storage.theme, next);
+    } catch (error) {
+      /* ignore storage failures */
+    }
+    updateThemeButton();
+    requestAnimationFrame(drawTechnicalCanvas);
+  }
+
   function init() {
     bindEvents();
+    updateThemeButton();
     renderQuizChapterSelect();
     renderDashboard();
     renderChapterList();
@@ -106,6 +133,7 @@
     $("#startNumericQuizBtn").addEventListener("click", () => startQuiz("numeric"));
     $("#startWrongQuizBtn").addEventListener("click", () => startQuiz("wrong"));
 
+    $("#themeToggle").addEventListener("click", toggleTheme);
     $("#formulaSearch").addEventListener("input", renderFormulaList);
     $("#clearMistakesBtn").addEventListener("click", () => {
       state.mistakes.clear();
@@ -626,11 +654,20 @@
     const width = rect.width;
     const height = rect.height;
     const pad = 28;
+    const dark = isDarkTheme();
+    const palette = {
+      bg: dark ? "#161d1a" : "#fbfcfa",
+      grid: dark ? "#2b3733" : "#e1e6e0",
+      up: dark ? "#3fae73" : "#287653",
+      down: dark ? "#d65a5a" : "#b43d3d",
+      ma: dark ? "#5a9bd6" : "#255f99",
+      text: dark ? "#9caea5" : "#63706a"
+    };
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#fbfcfa";
+    ctx.fillStyle = palette.bg;
     ctx.fillRect(0, 0, width, height);
 
-    ctx.strokeStyle = "#e1e6e0";
+    ctx.strokeStyle = palette.grid;
     ctx.lineWidth = 1;
     for (let i = 0; i < 5; i += 1) {
       const y = pad + ((height - pad * 2) / 4) * i;
@@ -661,8 +698,8 @@
       const [open, high, low, close] = candle;
       const x = pad + step * index + step / 2;
       const up = close >= open;
-      ctx.strokeStyle = up ? "#287653" : "#b43d3d";
-      ctx.fillStyle = up ? "#287653" : "#b43d3d";
+      ctx.strokeStyle = up ? palette.up : palette.down;
+      ctx.fillStyle = up ? palette.up : palette.down;
       ctx.beginPath();
       ctx.moveTo(x, scaleY(high));
       ctx.lineTo(x, scaleY(low));
@@ -672,7 +709,7 @@
       ctx.fillRect(x - step * 0.26, bodyTop, step * 0.52, Math.max(3, bodyBottom - bodyTop));
     });
 
-    ctx.strokeStyle = "#255f99";
+    ctx.strokeStyle = palette.ma;
     ctx.lineWidth = 2;
     ctx.beginPath();
     candles.forEach((_, index) => {
@@ -685,7 +722,7 @@
     });
     ctx.stroke();
 
-    ctx.fillStyle = "#63706a";
+    ctx.fillStyle = palette.text;
     ctx.font = "12px Inter, system-ui, sans-serif";
     ctx.fillText("support", pad + 8, scaleY(118) - 8);
     ctx.strokeStyle = "rgba(176, 107, 20, 0.7)";
