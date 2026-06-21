@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NISM Research Analyst Sprint</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">RA</div>
+        <div>
+          <div class="brand-name">NISM RA Sprint</div>
+          <div class="brand-sub">Exam: June 27, 2026</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Study areas">
+        <button class="nav-button is-active" data-view="dashboard"><span class="mini-icon bars"></span>Dashboard</button>
+        <button class="nav-button" data-view="learn"><span class="mini-icon book"></span>Learn</button>
+        <button class="nav-button" data-view="quiz"><span class="mini-icon check"></span>Quiz</button>
+        <button class="nav-button" data-view="formulas"><span class="mini-icon sigma"></span>Formulas</button>
+        <button class="nav-button" data-view="mistakes"><span class="mini-icon alert"></span>Mistakes</button>
+      </nav>
+
+      <div class="exam-box">
+        <div class="eyebrow">Exam pattern</div>
+        <div class="exam-stat"><strong>100</strong><span>marks</span></div>
+        <div class="exam-lines">
+          <span>80 MCQ + 5 caselets</span>
+          <span>2 hours</span>
+          <span>Pass: 60 marks</span>
+          <span>Wrong: -0.25</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Weighted prep from your workbook</p>
+          <h1 id="viewTitle">Dashboard</h1>
+        </div>
+        <div class="top-actions">
+          <button class="ghost-button" id="resetProgressBtn" type="button">Reset progress</button>
+          <button class="primary-button" id="quickQuizBtn" type="button">Start weighted quiz</button>
+        </div>
+      </header>
+
+      <section class="view is-active" id="dashboardView">
+        <div class="metric-grid">
+          <article class="metric-panel">
+            <span class="metric-label">Days left</span>
+            <strong id="daysLeft">10</strong>
+            <small>Use June 26 for final mock review.</small>
+          </article>
+          <article class="metric-panel">
+            <span class="metric-label">Completed weight</span>
+            <strong id="completedWeight">0%</strong>
+            <small id="completedChapters">0 of 15 chapters marked done.</small>
+          </article>
+          <article class="metric-panel">
+            <span class="metric-label">Last quiz</span>
+            <strong id="lastQuizScore">--</strong>
+            <small id="lastQuizMeta">No quiz attempted yet.</small>
+          </article>
+          <article class="metric-panel">
+            <span class="metric-label">High-yield target</span>
+            <strong>49</strong>
+            <small>Marks from Technical, Financial, Valuation, Legal.</small>
+          </article>
+        </div>
+
+        <div class="dashboard-layout">
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Priority map</p>
+                <h2>Study marks by chapter</h2>
+              </div>
+            </div>
+            <div id="priorityBars" class="weight-bars"></div>
+          </section>
+
+          <section class="panel visual-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Chapter 15</p>
+                <h2>Technical analysis visual drill</h2>
+              </div>
+            </div>
+            <canvas id="technicalCanvas" width="680" height="310" aria-label="Candlestick and moving average practice chart"></canvas>
+            <div class="legend-row">
+              <span><i class="legend up"></i>Up candles</span>
+              <span><i class="legend down"></i>Down candles</span>
+              <span><i class="legend line"></i>Moving average</span>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">June 17 to June 27</p>
+              <h2>Crash roadmap</h2>
+            </div>
+          </div>
+          <div id="roadmapList" class="roadmap"></div>
+        </section>
+      </section>
+
+      <section class="view" id="learnView">
+        <div class="learn-layout">
+          <aside class="chapter-rail">
+            <div class="rail-title">Chapters</div>
+            <div id="chapterList" class="chapter-list"></div>
+          </aside>
+          <section class="panel learn-panel">
+            <div id="learnContent"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="quizView">
+        <div class="quiz-layout">
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Practice mode</p>
+                <h2>Quiz setup</h2>
+              </div>
+            </div>
+            <div class="quiz-controls">
+              <label>
+                Chapter
+                <select id="quizChapterSelect"></select>
+              </label>
+              <label>
+                Question count
+                <select id="quizCountSelect">
+                  <option value="10">10</option>
+                  <option value="20" selected>20</option>
+                  <option value="40">40</option>
+                  <option value="100">100 style</option>
+                </select>
+              </label>
+            </div>
+            <div class="button-row">
+              <button class="primary-button" id="startChapterQuizBtn" type="button">Chapter quiz</button>
+              <button class="secondary-button" id="startWeightedQuizBtn" type="button">Weighted quiz</button>
+              <button class="secondary-button" id="startNumericQuizBtn" type="button">Numericals drill</button>
+              <button class="secondary-button" id="startWrongQuizBtn" type="button">Wrong answers</button>
+            </div>
+            <p class="quiz-hint">The real exam has 40+ numerical questions. Drill the maths until it is automatic.</p>
+            <div class="score-rules">
+              <span>Correct: +1</span>
+              <span>Wrong: -0.25</span>
+              <span>Skipped: 0</span>
+            </div>
+          </section>
+
+          <section class="panel quiz-panel">
+            <div id="quizStage" class="quiz-stage empty-state">
+              Choose a mode to begin.
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="formulasView">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Numericals</p>
+              <h2>Formula deck</h2>
+            </div>
+            <label class="search-label">
+              <span>Search</span>
+              <input id="formulaSearch" type="search" placeholder="ROE, WACC, RSI">
+            </label>
+          </div>
+          <div id="formulaList" class="formula-grid"></div>
+        </section>
+      </section>
+
+      <section class="view" id="mistakesView">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Weak spots</p>
+              <h2>Question review</h2>
+            </div>
+            <button class="ghost-button" id="clearMistakesBtn" type="button">Clear mistakes</button>
+          </div>
+          <div id="mistakeList" class="mistake-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="lessons.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
