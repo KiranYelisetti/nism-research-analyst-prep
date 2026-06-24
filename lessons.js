@@ -983,6 +983,86 @@ window.STUDY_SIMPLE = {
 };
 
 window.STUDY_FLASHCARDS = {
+  1: [
+    { front: "The three connected jobs of a research analyst?", back: "Gather information, analyse it, and communicate an investment view.", hook: "Gather, Analyse, View." },
+    { front: "Sell-side vs buy-side analyst?", back: "Sell-side works for brokers and publishes public reports with price targets. Buy-side works for funds and keeps reports internal.", hook: "Sell-side sells to the public; buy-side buys for itself." },
+    { front: "What is an independent research analyst?", back: "One who works for a boutique/originator firm and sells research on a subscription basis." },
+    { front: "Can an analyst ask management for next quarter's unpublished profit?", back: "No. That is unpublished price-sensitive information. Research must use only public information." },
+    { front: "Key qualities desired in a research analyst?", back: "Independence, neutrality, confidentiality, numerical ability, and clear written communication." }
+  ],
+  2: [
+    { front: "Primary vs secondary market?", back: "Primary: the company issues securities and gets the money (IPO). Secondary: investors trade existing securities among themselves (NSE/BSE).", hook: "Primary = first time, money to company." },
+    { front: "Option vs future or forward?", back: "An option gives a right with no obligation. Futures and forwards create obligations for both sides.", hook: "Option is optional; future is forced." },
+    { front: "Roles: broker, exchange, clearing corporation, depository?", back: "Broker places the order, exchange matches it, clearing corporation settles it, depository holds shares electronically." },
+    { front: "Hedging vs speculation vs arbitrage?", back: "Hedging reduces existing risk. Speculation takes on price risk for a view. Arbitrage profits from a price gap across markets." },
+    { front: "What is dematerialisation?", back: "Converting physical share certificates into electronic (demat) form." },
+    { front: "ETF vs regular mutual fund unit?", back: "An ETF trades on the exchange like a share; a regular mutual fund unit is transacted with the AMC at NAV." }
+  ],
+  3: [
+    { front: "Face, book, market, intrinsic value?", back: "Face = printed nominal value. Book = accounting net worth per share. Market = today's price. Intrinsic = your estimate of true worth." },
+    { front: "Market cap formula?", back: "Share price x number of outstanding equity shares. Value of equity only." },
+    { front: "Enterprise value formula?", back: "Market cap + total debt - cash.", hook: "Add debt, subtract cash." },
+    { front: "Current yield formula and its limitation?", back: "Annual coupon / current market price. It ignores the capital gain or loss to maturity." },
+    { front: "What does YTM assume?", back: "The bond is held to maturity with all cash flows received as scheduled." },
+    { front: "Bond price vs market interest rates?", back: "They move inversely. Rates up, bond price down.", hook: "Seesaw." },
+    { front: "What increases a bond's duration?", back: "Longer maturity and lower coupon. Higher duration means more interest-rate sensitivity." },
+    { front: "What is a zero-coupon bond?", back: "It pays no periodic interest; issued at a discount and redeemed at face value." }
+  ],
+  4: [
+    { front: "Mosaic analysis vs insider information?", back: "Mosaic builds a view from many public clues (legal). Insider info uses unpublished price-sensitive info (illegal).", hook: "Public tiles vs cheating." },
+    { front: "Investing vs speculation?", back: "Investing is disciplined, research-driven, longer-horizon. Speculation is a shorter-term price bet." },
+    { front: "Fundamental vs technical vs quantitative vs behavioural?", back: "Fundamental studies business value; technical studies price and volume; quantitative uses data models; behavioural studies investor psychology." },
+    { front: "Standard fundamental analysis sequence?", back: "Economy, industry, company, financials, valuation (top-down or bottom-up)." }
+  ],
+  5: [
+    { front: "Fiscal vs monetary policy?", back: "Fiscal = government spending and taxation. Monetary = central bank (RBI) rates and money supply.", hook: "Fiscal = govt; Monetary = RBI." },
+    { front: "FDI vs FPI?", back: "FDI is long-term direct investment (factories). FPI is portfolio flows into financial assets that can leave quickly.", hook: "FDI stays; FPI flies." },
+    { front: "Secular vs cyclical vs seasonal trend?", back: "Secular = long-term structural shift. Cyclical = moves with the economic cycle. Seasonal = repeats at the same time each year." },
+    { front: "Effect of higher interest rates on valuations?", back: "Higher discount rates and borrowing costs, which tend to lower valuation multiples." },
+    { front: "Micro vs macro economics?", back: "Micro = individual firms and consumers. Macro = the whole economy (GDP, inflation, rates, currency)." },
+    { front: "Main sources for economic data?", back: "RBI, government statistics, and global bodies like the IMF, World Bank, and ADB." }
+  ],
+  6: [
+    { front: "Porter's five forces?", back: "Rivalry, threat of new entrants, threat of substitutes, buyer power, supplier power." },
+    { front: "PESTLE stands for?", back: "Political, Economic, Socio-cultural, Technological, Legal, Environmental." },
+    { front: "BCG matrix four boxes?", back: "Star (high growth, high share), Cash cow (low growth, high share), Question mark (high growth, low share), Dog (low, low).", hook: "Star shines, Cow gives cash, Question is risky, Dog is weak." },
+    { front: "SCP framework?", back: "Structure-Conduct-Performance." },
+    { front: "What is value migration?", back: "Movement of profit and market value from old business models to new ones." },
+    { front: "Top-down vs bottom-up market sizing?", back: "Top-down starts from a macro aggregate; bottom-up builds total demand from individual segments." },
+    { front: "Industry KPI examples?", back: "Telecom = ARPU, Hotel = occupancy, Airline = load factor, Bank = NIM/GNPA/CASA." },
+    { front: "Is a high-growth industry always attractive?", back: "No. Intense competition and low entry barriers can destroy returns despite growth." }
+  ],
+  7: [
+    { front: "SWOT: which parts are internal vs external?", back: "Strengths and Weaknesses are internal; Opportunities and Threats are external.", hook: "SW inside, OT outside." },
+    { front: "What is pricing power?", back: "The ability to raise prices without losing significant demand." },
+    { front: "Sources of a moat (competitive advantage)?", back: "Brand, patents, scale, cost advantage, network effects, switching costs, distribution, regulation." },
+    { front: "Governance red flags?", back: "Opaque related-party transactions, high promoter pledging, auditor resignations, weak disclosures." },
+    { front: "Is high promoter holding automatically good?", back: "No. Alignment and governance quality matter more than the holding level." },
+    { front: "ESG stands for?", back: "Environmental, Social, and Governance factors." }
+  ],
+  8: [
+    { front: "Balance sheet vs P&L vs cash flow timing?", back: "Balance sheet is a snapshot on one date; P&L and cash flow cover a period.", hook: "Photo vs movie." },
+    { front: "Three cash flow buckets?", back: "Operating, Investing, Financing.", hook: "OIF." },
+    { front: "EBITDA margin formula?", back: "EBITDA / Net sales." },
+    { front: "PAT margin formula?", back: "PAT / Net sales." },
+    { front: "ROE formula and net worth?", back: "PAT / Net worth. Net worth = equity share capital (face value) + reserves & surplus (use average)." },
+    { front: "ROCE formula?", back: "EBIT / Capital employed.", hook: "ROCE uses EBIT, not PAT." },
+    { front: "Interest coverage formula and danger level?", back: "EBIT / Interest. Below 1 means earnings cannot even cover interest." },
+    { front: "Current vs quick ratio?", back: "Current = CA / CL. Quick = (CA - inventory) / CL. Quick removes inventory only." },
+    { front: "Debt-to-equity benchmark?", back: "Total adjusted debt / net worth. A conservative benchmark is 1 or below." },
+    { front: "DuPont decomposition of ROE?", back: "Net profit margin x Asset turnover x Equity multiplier (leverage)." },
+    { front: "If ROE rises only from higher leverage?", back: "It is lower quality and riskier than ROE rising from margin or efficiency." },
+    { front: "Profit but negative operating cash flow signals?", back: "Possible earnings-quality or working-capital stress.", hook: "Profit is opinion, cash is fact." },
+    { front: "Audit opinions: qualified vs adverse vs disclaimer?", back: "Qualified = specific reservations. Adverse = accounts are wrong. Disclaimer = auditor could not form an opinion." }
+  ],
+  9: [
+    { front: "Bonus issue effect?", back: "Free extra shares from reserves; share count rises, price adjusts down, no cash flow.", hook: "Bonus = more shares, no cash." },
+    { front: "Stock split effect?", back: "Face value and price drop, share count rises proportionately; total value unchanged." },
+    { front: "Rights issue vs buyback (cash direction)?", back: "Rights brings cash INTO the company; buyback sends cash OUT.", hook: "Rights in, buyback out." },
+    { front: "Share consolidation (reverse split)?", back: "Fewer shares, higher face value per share." },
+    { front: "TERP formula?", back: "(Cum-rights value of holding + rights subscription amount) / total shares after rights." },
+    { front: "Ex-bonus price for a 1:1 bonus?", back: "Roughly halves, since shares double and total value is unchanged." }
+  ],
   10: [
     { front: "DDM and FCFE are discounted at which rate?", back: "Cost of equity (Ke). Equity cash flows belong to shareholders, so use Ke.", hook: "E goes with E: FCF-E uses K-e." },
     { front: "FCFF is discounted at which rate?", back: "WACC. Firm-wide cash flow belongs to all capital providers (equity + debt).", hook: "Firm to everyone, so WACC." },
@@ -1026,5 +1106,44 @@ window.STUDY_FLASHCARDS = {
     { front: "Does disclosing a conflict make conflicted behaviour acceptable?", back: "No. Disclosure manages a conflict but does not cure misconduct." },
     { front: "CSCRF stands for?", back: "Cyber Security and Cyber Resilience Framework." },
     { front: "The complaint flow, in order (three acronyms)?", back: "SCORES, then RAASB, then SMARTODR: portal, first reviewer, escalation.", hook: "SCORES to RAASB to SMARTODR." }
+  ],
+  11: [
+    { front: "Primary driver of commodity prices?", back: "The supply-demand balance and inventories." },
+    { front: "Effect of a stronger US dollar on commodities?", back: "It pressures dollar-priced commodities, making them costlier for non-dollar buyers.", hook: "Dollar up, commodity demand down." },
+    { front: "Producer hedge vs consumer hedge?", back: "A producer fears a price fall and SELLS futures (short). A consumer fears a price rise and BUYS futures (long)." },
+    { front: "Why can a domestic price differ from the global price?", back: "Currency, duties, taxes, freight, and local supply-demand conditions." },
+    { front: "Key inputs for agricultural commodities?", back: "Crop reports and weather data." }
+  ],
+  12: [
+    { front: "CAGR formula?", back: "(Ending value / Beginning value)^(1/years) - 1. Compounded, not total divided by years." },
+    { front: "What does beta measure?", back: "Sensitivity to market moves. Above 1 = more volatile than the market; below 1 = less." },
+    { front: "Systematic vs unsystematic risk?", back: "Systematic = market-wide, cannot be diversified away. Unsystematic = company-specific, can be diversified.", hook: "System-wide you can't escape; specific you can spread." },
+    { front: "What does standard deviation measure?", back: "Total volatility (dispersion) of returns." },
+    { front: "Sharpe ratio formula?", back: "(Portfolio return - risk-free rate) / standard deviation. Return per unit of total risk." },
+    { front: "What is margin of safety?", back: "The gap between intrinsic value and purchase price; a cushion against errors." },
+    { front: "Holding period return formula?", back: "(Ending value - beginning value + income) / beginning value." },
+    { front: "Confirmation bias vs herding vs loss aversion?", back: "Confirmation = seeking info that supports your view. Herding = following the crowd. Loss aversion = losses hurt more than equal gains." },
+    { front: "Indicators of poor share liquidity?", back: "Low volume, low trading frequency, wide bid-ask spread, high impact cost." }
+  ],
+  13: [
+    { front: "What must a good research report contain?", back: "Business, thesis, financials, valuation, recommendation, risks, and disclosures. Not just a target price." },
+    { front: "Most reliable fact sources?", back: "Annual reports and official filings, not rumours or media commentary." },
+    { front: "Purpose of a checklist approach?", back: "Improves completeness and consistency, reducing missed sections like risks and disclosures." },
+    { front: "Should risk factors be hidden to make a report persuasive?", back: "No. Risks must be clearly disclosed and linked to the thesis." }
+  ],
+  15: [
+    { front: "What does technical analysis study?", back: "Price and volume behaviour, not company fundamentals. Mainly used for timing." },
+    { front: "Line vs candlestick chart?", back: "A line chart uses closing prices. A candlestick shows open, high, low, and close." },
+    { front: "Dow Theory on trends?", back: "A trend persists until a clear reversal. Primary = main, Secondary = correction, Tertiary = noise." },
+    { front: "Hammer vs hanging man?", back: "Same shape. A hammer after a decline is bullish; a hanging man after an advance is bearish. Context decides." },
+    { front: "Morning star vs evening star?", back: "Morning star = bullish reversal. Evening star = bearish reversal.", hook: "Morning up, evening down." },
+    { front: "Ascending triangle?", back: "Horizontal resistance with rising lows (buyers getting aggressive)." },
+    { front: "RSI thresholds?", back: "Above 70 overbought, below 30 oversold. A warning, not an automatic signal.", hook: "70/30." },
+    { front: "What does ADX tell you?", back: "Trend strength, not direction. Below 25 is weak; rising above 25 is a strong trend.", hook: "Strength, not which way." },
+    { front: "MACD construction?", back: "12-period EMA minus 26-period EMA; the signal line is the 9-period EMA of the MACD." },
+    { front: "What does RSC above 100 mean?", back: "The stock is outperforming the benchmark (below 100 means underperforming)." },
+    { front: "OBV is read together with?", back: "Its 20-period average; volume is used to confirm price direction." },
+    { front: "After a breakdown, support becomes?", back: "Resistance. The roles swap." },
+    { front: "What is a bearish divergence on RSI?", back: "Price makes a higher high but RSI makes a lower high, signalling lost momentum." }
   ]
 };
