@@ -18,7 +18,8 @@
     planDone: new Set(readList(storage.plan)),
     scores: readList(storage.scores),
     mistakes: new Set(readList(storage.mistakes)),
-    quiz: null
+    quiz: null,
+    flash: null
   };
 
   function readList(key) {
@@ -252,6 +253,7 @@
   }
 
   function renderLearn() {
+    state.flash = null;
     const chapter = chapterById(state.selectedChapter);
     const isComplete = state.completed.has(String(chapter.id));
     const quizCount = questionsForChapter(chapter.id).length;
@@ -259,6 +261,7 @@
     const formulas = chapter.formulas || [];
     const lessonPack = window.STUDY_LESSONS ? window.STUDY_LESSONS[chapter.id] : null;
     const simplePack = window.STUDY_SIMPLE ? window.STUDY_SIMPLE[chapter.id] : null;
+    const deck = chapterFlashcards(chapter.id);
 
     $("#learnContent").innerHTML = `
       <div class="chapter-heading">
@@ -272,6 +275,7 @@
           </div>
         </div>
         <div class="button-row">
+          ${deck && deck.length ? '<button class="secondary-button" id="openFlashcardsBtn" type="button">Memorise (flashcards)</button>' : ""}
           <button class="secondary-button" id="chapterQuizFromLearn" type="button">Quiz this chapter</button>
           <button class="primary-button" id="toggleCompleteBtn" type="button">${isComplete ? "Mark not done" : "Mark done"}</button>
         </div>
@@ -321,6 +325,115 @@
       $("#quizChapterSelect").value = String(chapter.id);
       startQuiz("chapter");
     });
+
+    const flashBtn = $("#openFlashcardsBtn");
+    if (flashBtn) flashBtn.addEventListener("click", () => openFlashcards(chapter.id));
+  }
+
+  function chapterFlashcards(id) {
+    return window.STUDY_FLASHCARDS ? window.STUDY_FLASHCARDS[Number(id)] : null;
+  }
+
+  function openFlashcards(chapterId) {
+    const deck = chapterFlashcards(chapterId);
+    if (!deck || !deck.length) return;
+    state.flash = {
+      chapter: Number(chapterId),
+      deck,
+      order: shuffle(deck.map((_, index) => index)),
+      pos: 0,
+      revealed: false
+    };
+    renderFlashcards();
+  }
+
+  function exitFlashcards() {
+    state.flash = null;
+    renderLearn();
+  }
+
+  function flashMark(gotIt) {
+    const flash = state.flash;
+    if (!flash) return;
+    if (gotIt) {
+      flash.pos += 1;
+    } else {
+      const current = flash.order.splice(flash.pos, 1)[0];
+      flash.order.push(current);
+    }
+    flash.revealed = false;
+    renderFlashcards();
+  }
+
+  function renderFlashcards() {
+    const flash = state.flash;
+    if (!flash) return;
+    const chapter = chapterById(flash.chapter);
+    const total = flash.order.length;
+
+    if (flash.pos >= total) {
+      $("#learnContent").innerHTML = `
+        <section class="flash-panel">
+          <div class="flash-top">
+            <p class="eyebrow">Flashcards | Ch ${chapter.id}</p>
+            <button class="secondary-button" id="flashBackBtn" type="button">Back to lesson</button>
+          </div>
+          <div class="flash-done">
+            <h3>Deck complete</h3>
+            <p>You recalled all ${total} cards for ${escapeHtml(chapter.title)}. Shuffle and go again to lock it in.</p>
+            <div class="button-row">
+              <button class="primary-button" id="flashRestartBtn" type="button">Shuffle &amp; restart</button>
+            </div>
+          </div>
+        </section>
+      `;
+      $("#flashBackBtn").addEventListener("click", exitFlashcards);
+      $("#flashRestartBtn").addEventListener("click", () => openFlashcards(flash.chapter));
+      return;
+    }
+
+    const card = flash.deck[flash.order[flash.pos]];
+    const remaining = total - flash.pos;
+    $("#learnContent").innerHTML = `
+      <section class="flash-panel">
+        <div class="flash-top">
+          <p class="eyebrow">Flashcards | Ch ${chapter.id} | ${remaining} left</p>
+          <button class="secondary-button" id="flashBackBtn" type="button">Back to lesson</button>
+        </div>
+        <article class="flash-card">
+          <div class="flash-side flash-q">
+            <span class="flash-label">Recall</span>
+            <p>${escapeHtml(card.front)}</p>
+          </div>
+          ${flash.revealed ? `
+            <div class="flash-side flash-a">
+              <span class="flash-label">Answer</span>
+              <p>${escapeHtml(card.back)}</p>
+              ${card.hook ? `<div class="flash-hook"><b>Hook:</b> ${escapeHtml(card.hook)}</div>` : ""}
+            </div>
+          ` : ""}
+        </article>
+        <div class="flash-controls">
+          ${flash.revealed ? `
+            <button class="secondary-button" id="flashAgainBtn" type="button">Again</button>
+            <button class="primary-button" id="flashGotBtn" type="button">Got it</button>
+          ` : `
+            <button class="primary-button flash-reveal" id="flashRevealBtn" type="button">Show answer</button>
+          `}
+        </div>
+      </section>
+    `;
+
+    $("#flashBackBtn").addEventListener("click", exitFlashcards);
+    if (flash.revealed) {
+      $("#flashAgainBtn").addEventListener("click", () => flashMark(false));
+      $("#flashGotBtn").addEventListener("click", () => flashMark(true));
+    } else {
+      $("#flashRevealBtn").addEventListener("click", () => {
+        flash.revealed = true;
+        renderFlashcards();
+      });
+    }
   }
 
   function renderSimplePack(simple) {

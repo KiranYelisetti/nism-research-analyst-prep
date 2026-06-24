@@ -1358,3 +1358,96 @@ input[type="search"] {
 [data-theme="dark"] .simple-mnemonic { background: #173026; color: #cdebd6; }
 
 [data-theme="dark"] #technicalCanvas { background: #161d1a; }
+
+/* ---- Flashcards (active-recall memorise mode) ---- */
+.flash-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.flash-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.flash-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 26px 24px;
+  min-height: 190px;
+  display: grid;
+  gap: 16px;
+  align-content: center;
+}
+
+.flash-side {
+  display: grid;
+  gap: 8px;
+}
+
+.flash-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.flash-q p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.flash-a {
+  border-top: 1px dashed var(--line);
+  padding-top: 14px;
+}
+
+.flash-a p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.flash-hook {
+  margin-top: 8px;
+  font-size: 13px;
+  background: #fbf3da;
+  color: #6a5a2a;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.flash-hook b {
+  color: #8a6a1e;
+}
+
+.flash-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.flash-controls .primary-button,
+.flash-controls .secondary-button {
+  flex: 1 1 auto;
+  min-height: 50px;
+}
+
+.flash-done {
+  text-align: center;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+
+[data-theme="dark"] .flash-hook { background: #2e2716; color: #ecd9a8; }
+[data-theme="dark"] .flash-hook b { color: #f0c970; }

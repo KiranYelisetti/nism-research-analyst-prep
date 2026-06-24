@@ -981,3 +981,50 @@ window.STUDY_SIMPLE = {
     mnemonic: "RSI 70/30, ADX 25 for strength only, MACD for momentum, OBV for volume, RSC vs the index."
   }
 };
+
+window.STUDY_FLASHCARDS = {
+  10: [
+    { front: "DDM and FCFE are discounted at which rate?", back: "Cost of equity (Ke). Equity cash flows belong to shareholders, so use Ke.", hook: "E goes with E: FCF-E uses K-e." },
+    { front: "FCFF is discounted at which rate?", back: "WACC. Firm-wide cash flow belongs to all capital providers (equity + debt).", hook: "Firm to everyone, so WACC." },
+    { front: "CAPM formula for cost of equity?", back: "Ke = Rf + Beta x (Rm - Rf). Risk-free rate plus beta times the market risk premium.", hook: "Multiply beta by the PREMIUM (Rm - Rf), not Rm." },
+    { front: "WACC formula?", back: "WACC = Ke x We + Kd x (1 - tax) x Wd. Only debt gets the (1 - tax) shield.", hook: "Tax-discount the debt, never the equity." },
+    { front: "Gordon growth (DDM) fair-value formula and its key rule?", back: "P0 = D1 / (Ke - g). The growth g must be LESS than Ke, or the maths breaks.", hook: "g below Ke, always." },
+    { front: "When is EV/EBITDA preferred over P/E?", back: "When comparing firms with different leverage. EV multiples are capital-structure neutral.", hook: "EV sees the whole house, mortgage included." },
+    { front: "Best multiple for banks and asset-heavy firms?", back: "Price-to-Book (P/B). Book value is meaningful for financials and asset-heavy businesses." },
+    { front: "Which multiple when earnings are negative but revenue is real?", back: "EV/Sales. Useful for early-stage and new-age firms with no profit yet." },
+    { front: "PEG ratio formula and rough fair value?", back: "PEG = P/E divided by growth %. Around 1 is fair; below 1 may be cheap IF the growth is genuine." },
+    { front: "Earnings yield formula?", back: "EPS / Price, which is just 1 divided by the P/E." },
+    { front: "The four valuation approaches?", back: "DCF (intrinsic), Relative (comparables), Asset-based (NAV), and SOTP (sum of the parts).", hook: "DRAS: Dcf, Relative, Asset, Sotp." },
+    { front: "What is terminal value and why does it matter?", back: "Value beyond the explicit forecast period. It is usually the biggest part of a DCF and very sensitive to g and the discount rate." },
+    { front: "DDM suits which kind of company?", back: "Mature companies with stable, predictable dividends." },
+    { front: "SOTP valuation is best for which companies?", back: "Diversified conglomerates: value each business separately, then add them up." },
+    { front: "After-tax cost of debt formula?", back: "Kd x (1 - tax). Interest is tax-deductible, which creates a tax shield." },
+    { front: "Price vs value?", back: "Price is the market quote; value is your own estimate of worth. Buy when value is clearly above price." },
+    { front: "Two assumptions that drive a DCF answer the most?", back: "The discount rate and the terminal value." },
+    { front: "Does a low P/E always mean a stock is cheap?", back: "No. It can reflect weak growth, high risk, poor governance, or one-off or leveraged EPS." }
+  ],
+  14: [
+    { front: "Which regulator: securities market and research analysts?", back: "SEBI." },
+    { front: "Which regulator: banks and monetary policy?", back: "RBI." },
+    { front: "Which regulator: insurance?", back: "IRDAI." },
+    { front: "Which regulator: pensions / NPS?", back: "PFRDA." },
+    { front: "Which regulator: companies and company law?", back: "MCA (Ministry of Corporate Affairs)." },
+    { front: "Which body handles insolvency and bankruptcy?", back: "IBBI, under the Insolvency and Bankruptcy Code (IBC).", hook: "Shares-SEBI, Banks-RBI, Insurance-IRDAI, Pension-PFRDA, Companies-MCA, Bankruptcy-IBBI." },
+    { front: "What does SCRA, 1956 govern?", back: "Securities contracts, and the recognition and regulation of stock exchanges." },
+    { front: "Research analysts are registered under which regulations?", back: "SEBI (Research Analysts) Regulations, 2014." },
+    { front: "UPSI: full form and the two rules?", back: "Unpublished Price-Sensitive Information. Do not trade on it; do not pass it on.", hook: "Exam leak: never use, never share." },
+    { front: "What does PFUTP target?", back: "Prohibition of Fraudulent and Unfair Trade Practices (manipulation and deception)." },
+    { front: "What are GSM and ASM?", back: "Exchange surveillance measures (Graded and Additional) placed on risky stocks. Not valuation tools.", hook: "G/ASM = surveillance, not valuation." },
+    { front: "The Investor Charter vision?", back: "Invest with knowledge and safety." },
+    { front: "An RA must redress a grievance within how many days?", back: "21 days." },
+    { front: "SEBI's online complaint portal?", back: "SCORES (now SCORES 2.0)." },
+    { front: "RAASB: what is it and its role?", back: "Research Analyst Administration and Supervisory Body. It does the first-level review of complaints; SEBI does the second." },
+    { front: "What is SMARTODR for?", back: "Online dispute resolution (conciliation or arbitration) if a complaint stays unresolved." },
+    { front: "What is CeFCoM?", back: "Centralized Fee Collection Mechanism, through which fee-paying clients can pay the RA." },
+    { front: "What new disclosure must an RA make about tools?", back: "The extent of use of Artificial Intelligence (AI) tools in providing research." },
+    { front: "Core RA conduct duties?", back: "Register, be NISM-qualified, disclose conflicts, no front-running, no assured returns, and audit annually." },
+    { front: "Does disclosing a conflict make conflicted behaviour acceptable?", back: "No. Disclosure manages a conflict but does not cure misconduct." },
+    { front: "CSCRF stands for?", back: "Cyber Security and Cyber Resilience Framework." },
+    { front: "The complaint flow, in order (three acronyms)?", back: "SCORES, then RAASB, then SMARTODR: portal, first reviewer, escalation.", hook: "SCORES to RAASB to SMARTODR." }
+  ]
+};
