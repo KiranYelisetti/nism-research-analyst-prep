@@ -32,6 +32,7 @@
         <button class="nav-button is-active" data-view="dashboard"><span class="mini-icon bars"></span>Dashboard</button>
         <button class="nav-button" data-view="learn"><span class="mini-icon book"></span>Learn</button>
         <button class="nav-button" data-view="quiz"><span class="mini-icon check"></span>Quiz</button>
+        <button class="nav-button" data-view="revise"><span class="mini-icon loop"></span>Revise</button>
         <button class="nav-button" data-view="formulas"><span class="mini-icon sigma"></span>Formulas</button>
         <button class="nav-button" data-view="mistakes"><span class="mini-icon alert"></span>Mistakes</button>
       </nav>
@@ -207,6 +208,22 @@
             <button class="ghost-button" id="clearMistakesBtn" type="button">Clear mistakes</button>
           </div>
           <div id="mistakeList" class="mistake-list"></div>
+        </section>
+      </section>
+
+      <section class="view" id="reviseView">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Endless explanatory revision</p>
+              <h2>Revise all chapters</h2>
+            </div>
+            <div class="button-row">
+              <button class="secondary-button" id="reviseOrderBtn" type="button">Study order</button>
+              <button class="secondary-button" id="reviseShuffleBtn" type="button">Shuffle</button>
+            </div>
+          </div>
+          <div id="reviseStage"></div>
         </section>
       </section>
     </main>

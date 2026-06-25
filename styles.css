@@ -1109,7 +1109,7 @@ input[type="search"] {
   }
 
   .nav {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .nav-button {
@@ -1199,7 +1199,7 @@ input[type="search"] {
     right: 0;
     bottom: 0;
     z-index: 100;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 0;
     background: #18231f;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -1212,8 +1212,8 @@ input[type="search"] {
     justify-content: center;
     gap: 3px;
     min-height: 52px;
-    padding: 6px 2px;
-    font-size: 11px;
+    padding: 6px 1px;
+    font-size: 10px;
     border-radius: 10px;
   }
 
@@ -1451,3 +1451,112 @@ input[type="search"] {
 
 [data-theme="dark"] .flash-hook { background: #2e2716; color: #ecd9a8; }
 [data-theme="dark"] .flash-hook b { color: #f0c970; }
+
+/* ---- Revise (endless explanatory loop) ---- */
+.mini-icon.loop::before {
+  content: "\21bb";
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.revise-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.revise-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  display: grid;
+  gap: 12px;
+}
+
+.revise-chtitle {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--teal);
+}
+
+.revise-card h3 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.revise-body {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.revise-teach {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.revise-teach li {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.revise-example,
+.revise-hook {
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 4px;
+}
+
+.revise-example { background: #eef5fb; }
+.revise-hook { background: #fff4df; }
+
+.revise-tag {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.revise-example p,
+.revise-hook p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #33433a;
+}
+
+.revise-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.revise-controls .primary-button,
+.revise-controls .secondary-button {
+  flex: 1 1 auto;
+  min-height: 52px;
+}
+
+.revise-hint {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+[data-theme="dark"] .revise-example { background: #14283d; }
+[data-theme="dark"] .revise-hook { background: #2e2716; }
+[data-theme="dark"] .revise-example p,
+[data-theme="dark"] .revise-hook p { color: #cdd9d2; }

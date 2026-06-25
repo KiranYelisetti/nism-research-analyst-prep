@@ -8,8 +8,12 @@
     plan: "nism-ra-plan-v1",
     scores: "nism-ra-scores-v1",
     mistakes: "nism-ra-mistakes-v1",
-    theme: "nism-ra-theme-v1"
+    theme: "nism-ra-theme-v1",
+    revise: "nism-ra-revise-v1"
   };
+
+  const REVISE_ORDER = [10, 14, 1, 2, 3, 4, 9, 13, 6, 12, 5, 7, 11, 8, 15];
+  let reviseDeck = null;
 
   const state = {
     view: "dashboard",
@@ -72,12 +76,16 @@
       dashboard: "Dashboard",
       learn: "Learn",
       quiz: "Quiz",
+      revise: "Revise",
       formulas: "Formulas",
       mistakes: "Mistakes"
     };
     $("#viewTitle").textContent = titles[view];
     if (view === "dashboard") {
       requestAnimationFrame(drawTechnicalCanvas);
+    }
+    if (view === "revise") {
+      renderRevise();
     }
   }
 
@@ -135,6 +143,18 @@
     $("#startWrongQuizBtn").addEventListener("click", () => startQuiz("wrong"));
 
     $("#themeToggle").addEventListener("click", toggleTheme);
+    $("#reviseOrderBtn").addEventListener("click", reviseStudyOrder);
+    $("#reviseShuffleBtn").addEventListener("click", reviseShuffle);
+    document.addEventListener("keydown", (event) => {
+      if (state.view !== "revise") return;
+      if (event.key === "ArrowRight" || event.key === " ") {
+        event.preventDefault();
+        reviseStep(1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        reviseStep(-1);
+      }
+    });
     $("#formulaSearch").addEventListener("input", renderFormulaList);
     $("#clearMistakesBtn").addEventListener("click", () => {
       state.mistakes.clear();
@@ -496,6 +516,123 @@
         </div>
       </section>
     `;
+  }
+
+  function buildReviseDeck() {
+    if (reviseDeck) return reviseDeck;
+    const cards = [];
+    REVISE_ORDER.forEach((chId) => {
+      const chapter = chapterById(chId);
+      const lesson = window.STUDY_LESSONS ? window.STUDY_LESSONS[chId] : null;
+      if (!chapter || !lesson) return;
+      cards.push({ ch: chId, chTitle: chapter.title, weight: chapter.weight, priority: chapter.priority, kind: "intro", title: "Chapter overview", body: lesson.intro });
+      (lesson.modules || []).forEach((module) => {
+        cards.push({ ch: chId, chTitle: chapter.title, weight: chapter.weight, priority: chapter.priority, kind: "module", title: module.title, teach: module.teach, example: module.example, hook: module.exam });
+      });
+    });
+    reviseDeck = cards;
+    return cards;
+  }
+
+  function initReviseState() {
+    const deck = buildReviseDeck();
+    let saved = {};
+    try {
+      saved = JSON.parse(localStorage.getItem(storage.revise) || "{}");
+    } catch (error) {
+      saved = {};
+    }
+    const pos = Math.min(Math.max(Number(saved.pos) || 0, 0), Math.max(0, deck.length - 1));
+    state.revise = {
+      order: deck.map((_, index) => index),
+      pos,
+      cycle: Math.max(1, Number(saved.cycle) || 1),
+      shuffled: false
+    };
+  }
+
+  function saveRevise() {
+    try {
+      localStorage.setItem(storage.revise, JSON.stringify({ pos: state.revise.pos, cycle: state.revise.cycle }));
+    } catch (error) {
+      /* ignore storage failures */
+    }
+  }
+
+  function reviseStep(direction) {
+    const revise = state.revise;
+    if (!revise) return;
+    const len = revise.order.length;
+    if (direction > 0) {
+      revise.pos += 1;
+      if (revise.pos >= len) {
+        revise.pos = 0;
+        revise.cycle += 1;
+      }
+    } else {
+      revise.pos -= 1;
+      if (revise.pos < 0) {
+        revise.pos = len - 1;
+        revise.cycle = Math.max(1, revise.cycle - 1);
+      }
+    }
+    if (!revise.shuffled) saveRevise();
+    renderRevise();
+  }
+
+  function reviseShuffle() {
+    if (!state.revise) initReviseState();
+    state.revise.order = shuffle(state.revise.order);
+    state.revise.pos = 0;
+    state.revise.shuffled = true;
+    renderRevise();
+  }
+
+  function reviseStudyOrder() {
+    const deck = buildReviseDeck();
+    if (!state.revise) initReviseState();
+    state.revise.order = deck.map((_, index) => index);
+    state.revise.pos = 0;
+    state.revise.shuffled = false;
+    saveRevise();
+    renderRevise();
+  }
+
+  function renderRevise() {
+    const deck = buildReviseDeck();
+    if (!state.revise) initReviseState();
+    const revise = state.revise;
+    const card = deck[revise.order[revise.pos]];
+    if (!card) return;
+
+    const body = card.kind === "intro"
+      ? `<p class="revise-body">${escapeHtml(card.body)}</p>`
+      : `
+        <ul class="revise-teach">${card.teach.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>
+        ${card.example ? `<div class="revise-example"><span class="revise-tag">Example</span><p>${escapeHtml(card.example)}</p></div>` : ""}
+        ${card.hook ? `<div class="revise-hook"><span class="revise-tag">Exam lens</span><p>${escapeHtml(card.hook)}</p></div>` : ""}
+      `;
+
+    $("#reviseStage").innerHTML = `
+      <div class="revise-meta">
+        <span class="tag ${card.priority === "major" ? "hot" : ""}">Ch ${card.ch} | ${card.weight} marks</span>
+        <span class="tag">Card ${revise.pos + 1} of ${deck.length}</span>
+        <span class="tag">Round ${revise.cycle}${revise.shuffled ? " | shuffled" : ""}</span>
+      </div>
+      <article class="revise-card">
+        <p class="revise-chtitle">${escapeHtml(card.chTitle)}</p>
+        <h3>${escapeHtml(card.title)}</h3>
+        ${body}
+      </article>
+      <div class="revise-controls">
+        <button class="secondary-button" id="revisePrevBtn" type="button">Previous</button>
+        <button class="primary-button" id="reviseNextBtn" type="button">Next</button>
+      </div>
+      <p class="revise-hint">This loops through every chapter forever in study order, so keep tapping Next to rotate. On a keyboard use the arrow keys or spacebar.</p>
+    `;
+
+    $("#revisePrevBtn").addEventListener("click", () => reviseStep(-1));
+    $("#reviseNextBtn").addEventListener("click", () => reviseStep(1));
   }
 
   function renderQuizChapterSelect() {
