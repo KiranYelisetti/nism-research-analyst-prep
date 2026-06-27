@@ -9,8 +9,132 @@
     scores: "nism-ra-scores-v1",
     mistakes: "nism-ra-mistakes-v1",
     theme: "nism-ra-theme-v1",
-    revise: "nism-ra-revise-v1"
+    revise: "nism-ra-revise-v1",
+    sr: "nism-ra-sr-v1"
   };
+
+  // Spaced repetition — Leitner-style boxes. Interval is when the item is next due.
+  const SR_BOX_INTERVAL_MS = [
+    0,
+    60 * 60 * 1000,             // box 1: 1 hour
+    24 * 60 * 60 * 1000,        // box 2: 1 day
+    3 * 24 * 60 * 60 * 1000,    // box 3: 3 days
+    7 * 24 * 60 * 60 * 1000,    // box 4: 7 days
+    14 * 24 * 60 * 60 * 1000,   // box 5: 14 days
+    30 * 24 * 60 * 60 * 1000    // box 6: 30 days
+  ];
+
+  function loadSR() {
+    try { return JSON.parse(localStorage.getItem(storage.sr) || "{}"); }
+    catch (e) { return {}; }
+  }
+  function saveSR(srState) {
+    localStorage.setItem(storage.sr, JSON.stringify(srState));
+  }
+
+  function srRecord(itemId, isCorrect) {
+    const srState = loadSR();
+    const now = Date.now();
+    const item = srState[itemId] || { box: 0, exposures: 0, correct: 0, wrongStreak: 0, lastSeen: 0, nextDue: 0 };
+    item.exposures += 1;
+    if (isCorrect) {
+      item.correct += 1;
+      item.wrongStreak = 0;
+      item.box = Math.min(item.box + 1, SR_BOX_INTERVAL_MS.length - 1);
+    } else {
+      item.wrongStreak += 1;
+      item.box = 0;
+    }
+    item.lastSeen = now;
+    item.nextDue = now + SR_BOX_INTERVAL_MS[item.box];
+    srState[itemId] = item;
+    saveSR(srState);
+  }
+
+  function srPriority(item, now) {
+    const overdueDays = Math.max(0, (now - item.nextDue) / (24 * 60 * 60 * 1000));
+    const wrongPenalty = (item.wrongStreak || 0) * 5;
+    const lowBoxBonus = (SR_BOX_INTERVAL_MS.length - item.box) * 2;
+    const accuracy = item.exposures > 0 ? item.correct / item.exposures : 0;
+    const accuracyPenalty = (1 - accuracy) * 10;
+    return overdueDays + wrongPenalty + lowBoxBonus + accuracyPenalty;
+  }
+
+  function srDueItems(now) {
+    now = now || Date.now();
+    const srState = loadSR();
+    const due = [];
+    for (const id in srState) {
+      if (srState[id].nextDue <= now) {
+        due.push({ id, item: srState[id], priority: srPriority(srState[id], now) });
+      }
+    }
+    due.sort((a, b) => b.priority - a.priority);
+    return due;
+  }
+
+  function srStats() {
+    const srState = loadSR();
+    const now = Date.now();
+    let due = 0, learning = 0, mastered = 0, total = 0;
+    let weakChapters = {};
+    let accSum = 0, accCount = 0;
+    for (const id in srState) {
+      const item = srState[id];
+      total += 1;
+      if (item.nextDue <= now) due += 1;
+      if (item.box >= 4) mastered += 1;
+      else learning += 1;
+      if (item.exposures > 0) {
+        accSum += item.correct / item.exposures;
+        accCount += 1;
+      }
+      // tally chapter weakness from question id (cNqM or cNqnewM)
+      const m = id.match(/^c(\d+)q/);
+      if (m && item.wrongStreak > 0) {
+        const ch = Number(m[1]);
+        weakChapters[ch] = (weakChapters[ch] || 0) + item.wrongStreak;
+      }
+    }
+    const avgAcc = accCount > 0 ? accSum / accCount : 0;
+    return { due, learning, mastered, total, avgAcc, weakChapters };
+  }
+
+  function srBuildReviewQueue(targetCount) {
+    targetCount = targetCount || 20;
+    const now = Date.now();
+    const due = srDueItems(now);
+    const dueIds = new Set(due.map((d) => d.id));
+    const queueQuestions = [];
+    const byId = {};
+    data.questions.forEach((q) => { byId[q.id] = q; });
+    // First: pull due items in priority order
+    for (const d of due) {
+      const q = byId[d.id];
+      if (q) queueQuestions.push(q);
+      if (queueQuestions.length >= targetCount) break;
+    }
+    // Fill remainder with unseen questions weighted by chapter mark weight
+    if (queueQuestions.length < targetCount) {
+      const seen = new Set(Object.keys(loadSR()));
+      const unseen = data.questions.filter((q) => !seen.has(q.id));
+      const weighted = [];
+      unseen.forEach((q) => {
+        const ch = chapterById(q.chapter);
+        const weight = ch ? ch.weight : 1;
+        for (let i = 0; i < weight; i++) weighted.push(q);
+      });
+      const shuffled = shuffle(weighted);
+      const usedIds = new Set(queueQuestions.map((q) => q.id));
+      for (const q of shuffled) {
+        if (usedIds.has(q.id)) continue;
+        queueQuestions.push(q);
+        usedIds.add(q.id);
+        if (queueQuestions.length >= targetCount) break;
+      }
+    }
+    return queueQuestions;
+  }
 
   const REVISE_ORDER = [10, 14, 1, 2, 3, 4, 9, 13, 6, 12, 5, 7, 11, 8, 15];
   let reviseDeck = null;
@@ -141,6 +265,10 @@
     $("#startChapterQuizBtn").addEventListener("click", () => startQuiz("chapter"));
     $("#startNumericQuizBtn").addEventListener("click", () => startQuiz("numeric"));
     $("#startWrongQuizBtn").addEventListener("click", () => startQuiz("wrong"));
+    const spacedBtn = $("#startSpacedQuizBtn");
+    if (spacedBtn) spacedBtn.addEventListener("click", () => startQuiz("spaced"));
+    const todayReviewBtn = $("#todayReviewBtn");
+    if (todayReviewBtn) todayReviewBtn.addEventListener("click", () => startQuiz("spaced"));
 
     $("#themeToggle").addEventListener("click", toggleTheme);
     $("#reviseOrderBtn").addEventListener("click", reviseStudyOrder);
@@ -163,7 +291,7 @@
     });
 
     $("#resetProgressBtn").addEventListener("click", () => {
-      if (!confirm("Reset completed chapters, roadmap checks, quiz scores, and mistakes?")) return;
+      if (!confirm("Reset completed chapters, roadmap checks, quiz scores, mistakes, and spaced-repetition memory?")) return;
       state.completed.clear();
       state.planDone.clear();
       state.scores = [];
@@ -172,6 +300,7 @@
       localStorage.removeItem(storage.plan);
       localStorage.removeItem(storage.scores);
       localStorage.removeItem(storage.mistakes);
+      localStorage.removeItem(storage.sr);
       renderDashboard();
       renderChapterList();
       renderLearn();
@@ -203,7 +332,50 @@
 
     renderPriorityBars();
     renderRoadmap();
+    renderTodayReview();
     requestAnimationFrame(drawTechnicalCanvas);
+  }
+
+  function renderTodayReview() {
+    const panel = $("#todayReviewPanel");
+    if (!panel) return;
+    const stats = srStats();
+    const accPct = Math.round((stats.avgAcc || 0) * 100);
+    const weakChs = Object.entries(stats.weakChapters)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+    const weakChsHtml = weakChs.length
+      ? weakChs.map(([ch, score]) => {
+          const chapter = chapterById(Number(ch));
+          const title = chapter ? chapter.title : "Chapter " + ch;
+          return '<li><span class="tag">Ch ' + ch + '</span> ' + escapeHtml(title) + ' <span class="weak-score">streak ' + score + '</span></li>';
+        }).join("")
+      : '<li class="muted">No weak topics yet. Take a quiz and any wrong answers will surface here.</li>';
+    const ctaLabel = stats.total === 0
+      ? "Start your first session (20 weighted questions)"
+      : stats.due > 0
+        ? "Review " + Math.min(stats.due, 20) + " due now"
+        : "All caught up — practice fresh questions";
+    panel.innerHTML =
+      '<div class="panel-header">' +
+        '<div>' +
+          '<p class="eyebrow">Spaced repetition</p>' +
+          '<h2>Today\'s review</h2>' +
+        '</div>' +
+        '<button class="primary-button" id="todayReviewBtn" type="button">' + escapeHtml(ctaLabel) + '</button>' +
+      '</div>' +
+      '<div class="sr-stats">' +
+        '<div class="sr-stat"><span class="sr-num">' + stats.due + '</span><span class="sr-label">Due now</span></div>' +
+        '<div class="sr-stat"><span class="sr-num">' + stats.learning + '</span><span class="sr-label">Learning</span></div>' +
+        '<div class="sr-stat"><span class="sr-num">' + stats.mastered + '</span><span class="sr-label">Mastered</span></div>' +
+        '<div class="sr-stat"><span class="sr-num">' + accPct + '%</span><span class="sr-label">Avg accuracy</span></div>' +
+      '</div>' +
+      '<div class="sr-weak">' +
+        '<p class="eyebrow">Weakest chapters (recent wrong streaks)</p>' +
+        '<ul class="weak-list">' + weakChsHtml + '</ul>' +
+      '</div>';
+    const btn = $("#todayReviewBtn");
+    if (btn) btn.addEventListener("click", () => startQuiz("spaced"));
   }
 
   function renderPriorityBars() {
@@ -490,23 +662,7 @@
           <p>${escapeHtml(lessonPack.intro)}</p>
         </div>
         <div class="lesson-stack">
-          ${lessonPack.modules.map((module, index) => `
-            <article class="lesson-card">
-              <div class="lesson-number">${index + 1}</div>
-              <div>
-                <h4>${escapeHtml(module.title)}</h4>
-                <ul>
-                  ${module.teach.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}
-                </ul>
-                <div class="lesson-example">
-                  <strong>Example:</strong> ${escapeHtml(module.example)}
-                </div>
-                <div class="lesson-exam">
-                  <strong>Exam lens:</strong> ${escapeHtml(module.exam)}
-                </div>
-              </div>
-            </article>
-          `).join("")}
+          ${lessonPack.modules.map((module, index) => renderLessonModule(module, index)).join("")}
         </div>
         <div class="lesson-drill">
           <h4>Mini-drill before quiz</h4>
@@ -515,6 +671,62 @@
           </ol>
         </div>
       </section>
+    `;
+  }
+
+  function renderLessonModule(module, index) {
+    const storyBlock = module.story
+      ? `<div class="lesson-story"><span class="lesson-tag">Story</span><p>${escapeHtml(module.story)}</p></div>`
+      : "";
+    const whyBlock = module.why
+      ? `<div class="lesson-why"><span class="lesson-tag">Why this matters</span><p>${escapeHtml(module.why)}</p></div>`
+      : "";
+    const images = Array.isArray(module.images) ? module.images : (module.images ? [module.images] : []);
+    const imageBlock = images.length
+      ? `<div class="lesson-images">
+          ${images.map((img) => `
+            <figure class="lesson-image">
+              <img src="${escapeHtml(img.src)}" alt="${escapeHtml(img.alt || img.caption || "")}" loading="lazy">
+              ${img.caption ? `<figcaption>${escapeHtml(img.caption)}</figcaption>` : ""}
+            </figure>
+          `).join("")}
+        </div>`
+      : "";
+    const formulaBlock = module.formula
+      ? `<div class="lesson-formula"><span class="lesson-tag">Formula</span><code>${escapeHtml(module.formula)}</code></div>`
+      : "";
+    const checks = Array.isArray(module.check) ? module.check : (module.check ? [module.check] : []);
+    const checkBlock = checks.length
+      ? `<div class="lesson-checks">
+          ${checks.map((c, i) => `
+            <details class="lesson-check">
+              <summary><span class="lesson-tag check-tag">Did you get it?</span> ${escapeHtml(c.q)}</summary>
+              <div class="lesson-check-body">${escapeHtml(c.a)}</div>
+            </details>
+          `).join("")}
+        </div>`
+      : "";
+    return `
+      <article class="lesson-card">
+        <div class="lesson-number">${index + 1}</div>
+        <div>
+          <h4>${escapeHtml(module.title)}</h4>
+          ${storyBlock}
+          ${whyBlock}
+          <ul>
+            ${module.teach.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}
+          </ul>
+          ${imageBlock}
+          ${formulaBlock}
+          <div class="lesson-example">
+            <strong>Example:</strong> ${escapeHtml(module.example)}
+          </div>
+          ${checkBlock}
+          <div class="lesson-exam">
+            <strong>Exam lens:</strong> ${escapeHtml(module.exam)}
+          </div>
+        </div>
+      </article>
     `;
   }
 
@@ -686,6 +898,9 @@
       items = data.questions.filter((question) => state.mistakes.has(question.id));
       title = "Wrong answers quiz";
       items = shuffle(items).slice(0, count);
+    } else if (mode === "spaced") {
+      items = srBuildReviewQueue(count);
+      title = "Spaced review";
     } else {
       items = getWeightedQuestions(count);
     }
@@ -778,8 +993,10 @@
     quiz.answers[quiz.index] = optionIndex;
     if (optionIndex === question.answer) {
       state.mistakes.delete(question.id);
+      srRecord(question.id, true);
     } else if (optionIndex !== -1) {
       state.mistakes.add(question.id);
+      srRecord(question.id, false);
     }
     writeList(storage.mistakes, state.mistakes);
     renderQuizQuestion();
