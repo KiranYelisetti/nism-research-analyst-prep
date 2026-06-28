@@ -951,7 +951,7 @@ window.STUDY_LESSONS = {
     modules: [
       {
         title: "Business Model — start with WHAT the business does (Workbook 7.2)",
-        story: "Before any ratio, answer: 'What does this company DO and how does it make money?' If you can't explain in one line, don't invest. Buffett: 'Wide diversification is only required when investors don't understand what they are doing.'",
+        story: "Before any ratio, answer: 'What does this company DO and how does it make money?' If you can't explain in one line, don't invest. (Buffett's well-known 'wide diversification is only required when investors don't understand what they are doing' is widely attributed to him but is NOT in the Feb 2026 workbook — useful intuition, not workbook recall.)",
         why: "Workbook stresses business model understanding as foundation. Conceptual questions appear.",
         teach: [
           "Three questions: (1) What does the company do? (2) Who are its customers? (3) How does it serve them?",
@@ -1253,7 +1253,7 @@ window.STUDY_LESSONS = {
           "Significant Accounting Policies — revenue recognition method, depreciation method, inventory valuation. Changes in policy = red flag.",
           "Contingent Liabilities — possible future obligations (lawsuits, tax disputes, guarantees) NOT yet on balance sheet but disclosed in notes. Large contingent liabilities can wipe out equity if they materialise.",
           "Related Party Transactions — sales/loans/leases with subsidiaries, promoter-controlled firms. Common red flag.",
-          "Audit Report Opinions: Unmodified (clean), Qualified (issue exists), Adverse (financials misleading), Disclaimer (auditor couldn't verify).",
+          "Audit Report Opinions PER WORKBOOK — THREE types only: Unmodified/Clean, Qualified (specific material issue exists), Disclaimer (auditor couldn't verify enough to form an opinion). Adverse exists in real accounting practice but is NOT listed in the Feb 2026 RA workbook — don't pick 'Adverse' on a workbook-recall question.",
           "Emphasis of Matter (EoM) — auditor draws attention to disclosed item without modifying opinion.",
           "Internal Financial Controls (IFCs) — auditor reports on internal controls."
         ],
@@ -1262,7 +1262,7 @@ window.STUDY_LESSONS = {
           { q: "What does a 'Qualified' audit opinion mean?", a: "Auditor found one or more material issues but financials are not entirely misleading. Read the qualification carefully — it points to the problem area." },
           { q: "Why is Contingent Liabilities important for an analyst?", a: "Not on balance sheet but represents real risk. A large pending tax dispute or guarantee can wipe out equity if it goes against the company." }
         ],
-        exam: "Adverse opinion = most severe. Disclaimer = auditor couldn't even check. Qualified = specific issue. Unmodified = clean."
+        exam: "Workbook lists THREE opinion types: Clean, Disclaimer, Qualified. Adverse is NOT in workbook — avoid in workbook-recall questions."
       },
       {
         title: "Important points (Workbook 8.8)",
@@ -1656,7 +1656,7 @@ window.STUDY_LESSONS = {
           "  (i) Voluntary delisting → 5 years before relisting.",
           "  (ii) Compulsory delisting → 10 years."
         ],
-        example: "Vedanta tried delisting in 2020 via reverse book-building. Failed because promoter couldn't cross 90% threshold. Bidding price was too high for promoter.",
+        example: "Illustration (not workbook-named): Vedanta tried delisting in 2020 via reverse book-building and failed because promoter couldn't cross the 90% threshold. Workbook teaches the mechanism in the abstract.",
         check: [
           { q: "Voluntary delisting threshold?", a: "Promoter holding must CROSS 90% after reverse book building. Plus at least 25% of public shareholders must participate." },
           { q: "Relisting wait after voluntary vs compulsory delisting?", a: "Voluntary = 5 years. Compulsory = 10 years." }
@@ -1761,7 +1761,7 @@ window.STUDY_LESSONS = {
           "Gordon Growth Model (perpetual growth) is the most common form."
         ],
         formula: "P0 = D1 / (Ke - g)   where D1 = next year's dividend, Ke = cost of equity, g = perpetual growth rate.",
-        example: "Coal India D1 = Rs 24, Ke = 14%, g = 4% → P0 = 24 / 0.10 = Rs 240.",
+        example: "Illustrative (not workbook-named): D1 = Rs 24, Ke = 14%, g = 4% → P0 = 24 / 0.10 = Rs 240. Use this as a Gordon Growth template, not as a Coal India fact.",
         check: [
           { q: "What is the rule for g in Gordon Growth?", a: "g must be LESS than Ke (else the formula breaks/returns negative or infinite). Also g should not exceed long-term nominal GDP growth (a business cannot grow faster than the economy forever)." },
           { q: "Why can't DDM value Alphabet?", a: "Alphabet has never paid a dividend, so D1 = 0. DDM gives zero value, which is wrong. Use FCFE or FCFF instead." }
@@ -2120,7 +2120,7 @@ window.STUDY_LESSONS = {
           "DISADVANTAGES: cost (margin, premium), caps upside (if prices move favourably you lose the gain), wrong hedge can amplify risk, requires expertise."
         ],
         formula: "Hedge Ratio = Correlation(Spot, Futures) × (SD of Spot change / SD of Futures change)",
-        example: "ABC Co needs 500 MT copper/month. Spot-Futures correlation 0.985, SD of spot change 9.02, SD of futures change 9.71. Hedge Ratio = 0.985 × (9.02/9.71) = 0.915. Hedge quantity = 500 × 0.915 = ~457 MT. With MCX copper contract 2.5 MT, need ~183 contracts.",
+        example: "Workbook ABC Co example: spot-futures correlation 0.985, SD of spot change 9.02, SD of futures change 9.71. Hedge Ratio = 0.985 × (9.02/9.71) = 0.915. The workbook applies this to a 100 MT exposure: hedge quantity = 100 × 0.915 = 91.5 MT. MCX copper contract = 2.5 MT, so contracts to hedge = 91.5 / 2.5 = 37. (If the worked exposure changes, scale accordingly — workbook's exam-quotable answer is 91.5 MT / 37 contracts.)",
         check: [
           { q: "Goal of hedging?", a: "Reduce price risk and create predictability. NOT to make profit. The point is insurance, not speculation." },
           { q: "What position does an airline hedging fuel risk take?", a: "BUY crude oil futures — locks in fuel cost. If crude rises, airline gains on futures to offset higher cash market fuel cost." }
@@ -2734,25 +2734,20 @@ window.STUDY_LESSONS = {
       },
       {
         title: "SEBI Investor Charter & SCORES (Workbook 14.6)",
-        story: "SEBI's Investor Charter is the customer-rights doc for RA clients. It says: you have right to clear info, fair treatment, grievance redressal in 21 days, escalation to SCORES/SMARTODR.",
-        why: "Specific timelines (21 days SCORES) get asked.",
+        story: "SEBI's Investor Charter is the customer-rights doc for RA clients. It tells clients their rights, the do's and don'ts, and where to escalate a complaint.",
+        why: "Workbook content is brief — only the existence of Investor Charter + RAs must publish complaints on website + SCORES link. Specific timelines (21 days) and the RAASB/SMARTODR/CeFCoM/PaRRVA acronyms below are SEBI background — NOT in the Feb 2026 workbook chapter, so don't pick them on workbook-recall questions.",
         teach: [
-          "Investor Charter for RAs published Dec 2021. Lists services, rights, responsibilities, do's and don'ts, grievance mechanism.",
-          "Vision: 'Invest with knowledge and safety'.",
-          "Mandatory disclosure on RA website/mobile app: Investor Charter + complaints data in SEBI-specified format.",
-          "Investor 'Don'ts': don't provide funds to RA, don't share demat login, don't trust guaranteed returns.",
-          "SCORES (SEBI Complaints Redress System) — online grievance platform. Resolution within 21 days.",
-          "SMARTODR — Smart Online Dispute Resolution. For conciliation/arbitration of unresolved complaints.",
-          "RAASB (RA Administration and Supervisory Body) — first level review (BSE Ltd designated).",
-          "CeFCoM — Centralized Fee Collection Mechanism for RA fee receipts.",
-          "PaRRVA — Past Risk and Return Verification Agency (for certified past performance disclosure)."
+          "Workbook content (Ch 14.6): SEBI published an Investor Charter for Research Analysts (Dec 2021 circular). It lists services provided, rights, do's and don'ts, responsibilities, grievance handling. RAs must bring this to clients' notice via website / mobile app / on-boarding email / letter. RAs must also disclose ALL complaints received (including SCORES complaints) on their website/app in the SEBI-specified format. If no website/app, send status to investors' registered email.",
+          "Workbook does NOT specify a numerical timeline (no 21 days), does NOT detail RAASB / SMARTODR / CeFCoM / PaRRVA in this chapter.",
+          "Background (NOT workbook): SCORES is SEBI's online complaints platform; SMARTODR is the online dispute resolution layer; RAASB = the RA Administration and Supervisory Body (BSE Ltd); CeFCoM = Centralised Fee Collection Mechanism; PaRRVA = Past Risk & Return Verification Agency.",
+          "Investor don'ts (workbook Annexure-style): don't hand investment funds to the RA, don't share demat/trading login, don't trust 'assured / guaranteed returns' claims."
         ],
-        example: "A client complains about no response from RA for 30 days. Should escalate via SCORES. RAASB does first review; SEBI does second-level.",
+        example: "Workbook example: an RA must publish a link to file a complaint on its website, and may also link to SCORES (web + mobile app). If the RA has no website, it emails complaint status to the registered investor email.",
         check: [
-          { q: "What is the SCORES resolution timeline?", a: "21 days. RA must respond and resolve within this window." },
-          { q: "If an RA promises 'assured 25% returns', what should the investor do?", a: "Refuse and report to SEBI. Assured returns are prohibited (Advertisement Code + Investor Charter 'don'ts')." }
+          { q: "Per the workbook, what must an RA disclose on its website/app?", a: "The Investor Charter AND all complaints received (including SCORES complaints) in the SEBI-specified format. No specific numeric timeline is stated in this chapter." },
+          { q: "If an RA promises 'assured 25% returns', what should the investor do?", a: "Refuse and report to SEBI. Assured returns are prohibited under the Advertisement Code and the Investor Charter 'don'ts'." }
         ],
-        exam: "21 days SCORES. RAASB = BSE-designated first review. SMARTODR = next step. CeFCoM = fee collection."
+        exam: "Stick to workbook wording: Investor Charter exists, RAs must disclose complaints on website. Don't bet on a 21-day SCORES number — workbook Ch14 doesn't state it."
       },
       {
         title: "Cybersecurity & Cyber Resilience Framework — CSCRF (Workbook 14.7) — NEW",
@@ -2837,7 +2832,7 @@ window.STUDY_LESSONS = {
           "1. The Market Discounts Everything — price reflects all known information.",
           "2. The Market Has THREE Trends — Primary (months/years), Secondary (weeks/months), Tertiary/Minor (days/weeks).",
           "3. Primary Trends Have Three Phases — Accumulation (smart money buys), Public Participation (general public buys), Distribution (smart money sells).",
-          "4. The Averages Must Confirm Each Other — Industrial and Transport (original Dow used DJIA + DJTA). For India: Nifty + Bank Nifty should align.",
+          "4. The Averages Must Confirm Each Other — Industrial and Transport (original Dow used DJIA + DJTA). Workbook framing for India: Nifty and Sensex should move together.",
           "5. Volume Must Confirm the Trend — rising prices + rising volume = healthy uptrend.",
           "6. A Trend is in Force Until There is a Clear Reversal Signal — don't fight the trend."
         ],
@@ -2876,7 +2871,7 @@ window.STUDY_LESSONS = {
           "Piercing Pattern — bullish reversal at BOTTOM (workbook sample Q4). 2-candle pattern. Second opens below prior low, closes above mid of first.",
           "Morning Star — 3-candle BULLISH reversal at bottom. Down candle → small body (star) → strong up candle.",
           "Evening Star — 3-candle BEARISH reversal at top. Up candle → small body → strong down candle.",
-          "Multi-candle reversals: Head & Shoulders (top = bearish), Inverse H&S (bottom = bullish), Double/Triple Top, Double/Triple Bottom."
+          "Background (NOT in Feb 2026 workbook Ch 15): Head & Shoulders (top = bearish), Inverse H&S (bottom = bullish), Double/Triple Top, Double/Triple Bottom. Useful as a trader but workbook 15.5 doesn't teach these as named reversal patterns — don't expect an exam question naming H&S specifically."
         ],
         images: [
           { src: "assets/ch15/hammer.jpg", caption: "Workbook p306 — Hammer pattern at the BOTTOM of a downtrend. Bullish reversal." },
@@ -2906,7 +2901,7 @@ window.STUDY_LESSONS = {
           "Flag — short rectangular consolidation after sharp move (the 'pole'). Slants AGAINST trend slightly. Continuation pattern.",
           "Pennant — small symmetrical triangle after sharp move. Continuation pattern.",
           "Rectangle — horizontal range. Trade breakout direction.",
-          "Cup & Handle — bullish continuation. Cup-shape recovery + small pullback (handle) + breakout."
+          "Background (NOT in workbook Ch 15.6): Cup & Handle — bullish continuation. Cup-shape recovery + small pullback (handle) + breakout. Real pattern but not named in the workbook."
         ],
         images: [
           { src: "assets/ch15/ascending-triangle.png", caption: "Workbook p310 — Ascending Triangle: flat resistance + rising lows. Usually bullish continuation breakout." },
@@ -2958,8 +2953,7 @@ window.STUDY_LESSONS = {
           "Workbook also references FIBONACCI EMAs: 13, 21, 34 for short-medium-long trend confirmation.",
           "In uptrend: Price > 13 EMA > 21 EMA > 34 EMA. 34 EMA acts as DYNAMIC SUPPORT.",
           "In downtrend: Price < 13 < 21 < 34 EMA. 34 EMA acts as DYNAMIC RESISTANCE.",
-          "Golden Cross — 50 DMA crosses ABOVE 200 DMA. Bullish.",
-          "Death Cross — 50 DMA crosses BELOW 200 DMA. Bearish.",
+          "Background (NOT in workbook 15.9.1): Golden Cross = 50 DMA above 200 DMA (bullish); Death Cross = 50 DMA below 200 DMA (bearish). Useful trader vocabulary but not workbook-named.",
           "MACD — measures momentum. Default = 12 EMA minus 26 EMA. Signal line = 9 EMA of MACD.",
           "MACD Bullish Crossover — MACD line crosses ABOVE Signal line WITH both rising.",
           "MACD Bearish Crossover — MACD crosses BELOW signal line.",
@@ -3063,13 +3057,13 @@ window.STUDY_LESSONS = {
         story: "Price tends to revert to its mean. Bollinger Bands plot 2 standard deviations above/below a 20-period SMA. When bands SQUEEZE = low volatility, breakout coming. When price hits upper band = overbought zone (with momentum context).",
         why: "Workbook mentions Bollinger and Fibonacci; both are exam staples.",
         teach: [
-          "Bollinger Bands = 20-period SMA ± 2 × standard deviation.",
+          "Background (NOT a workbook formula): Bollinger Bands = 20-period SMA ± 2 × standard deviation. Workbook Ch 15 mentions Bollinger only as one of several support/resistance tools — it does NOT give the 20 SMA / 2 SD construction. Don't quote this formula on a workbook-recall question.",
           "Band SQUEEZE (narrow bands) = low volatility, breakout imminent.",
           "Price near upper band = overbought; near lower band = oversold (use with trend context).",
           "Fibonacci Retracement Levels: 23.6%, 38.2%, 50% (not Fib but commonly used), 61.8%, 78.6%.",
           "Common Fib extensions: 127.2%, 161.8%.",
-          "ATR (Average True Range) — measures volatility; used for stop-loss sizing.",
-          "Gaps: Common (closes quickly), Breakaway (start of trend), Runaway (mid-trend), Exhaustion (end of trend)."
+          "Background (NOT in workbook): ATR (Average True Range) for volatility-based stop sizing.",
+          "Background (NOT in workbook): Gap classification — Common, Breakaway, Runaway, Exhaustion. Useful chart-reading concept but not workbook-named."
         ],
         example: "Nifty consolidating in tight 100-point range for 10 days with Bollinger Band squeeze. Then explosive breakout move. Trade in direction of breakout.",
         exam: "Bollinger = 20 SMA ± 2 SD. Fibonacci retracements: 38.2, 50, 61.8 are critical."
