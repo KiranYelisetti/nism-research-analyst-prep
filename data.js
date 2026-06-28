@@ -1,7 +1,7 @@
 window.STUDY_DATA = {
   exam: {
     name: "NISM-Series-XV: Research Analyst Certification Examination",
-    date: "2026-08-12",
+    date: "2026-08-01",
     workbookVersion: "February 2026",
     format: "80 one-mark MCQs plus 5 caselets with 4 one-mark questions each",
     duration: "2 hours",
@@ -257,14 +257,14 @@ window.STUDY_DATA = {
     }
   ],
   roadmap: [
-    { id: "p1", date: "Jun 28 - Jul 4 (Week 1)", focus: "Foundation rebuild - intuition first", chapters: [1, 2, 3, 4], actions: ["Ch 1: RA role + sell-side/buy-side conduct (story-first)", "Ch 2: market, derivatives, option writer vs buyer payoffs", "Ch 3: equity + debt vocabulary, face value, EV vs market cap", "Ch 4: risk and return - what beta really means"] },
-    { id: "p2", date: "Jul 5 - Jul 11 (Week 2)", focus: "Economy + industry lens", chapters: [5, 6], actions: ["Ch 5: macro - GDP, inflation, repo, how rates move sectors", "Ch 6: Porter 5, PESTLE, BCG - applied to real Indian firms", "Industry KPI memory (ARPU, NIM, CASA, RevPAR)", "10-question recall per chapter"] },
-    { id: "p3", date: "Jul 12 - Jul 18 (Week 3)", focus: "Company analysis - the heaviest chapter", chapters: [7, 8], actions: ["Ch 7: business model + governance red flags (story examples)", "Ch 8: balance sheet WALKTHROUGH, P&L cascade, every ratio with intuition", "DuPont decomposition with 3 worked cases", "Forward EPS / next-year projection method"] },
-    { id: "p4", date: "Jul 19 - Jul 25 (Week 4)", focus: "Valuation deep dive (the topic that ambushed you)", chapters: [9, 10], actions: ["Ch 9: corporate actions - split, bonus, rights, buyback", "Ch 10: DCF, CAPM, WACC, DDM - intuition before math", "EMBEDDED VALUE for insurance (was on your exam)", "Sum of the Parts (SOTP), banking valuation, multiples"] },
-    { id: "p5", date: "Jul 26 - Aug 1 (Week 5)", focus: "Risk, behavioural, reports, regs", chapters: [11, 12, 13, 14], actions: ["Ch 11: sensitivity, scenario, Monte Carlo, margin of safety", "Ch 12: 13 biases with caselet examples", "Ch 13: report structure + Public Appearance disclosures", "Ch 14: SEBI Acts, PIT/UPSI, PFUTP, GSM/ASM, SCORES"] },
-    { id: "p6", date: "Aug 2 - Aug 8 (Week 6)", focus: "Technical analysis - your trader edge", chapters: [15], actions: ["Dow Theory, trends, patterns (most you know already)", "MACD, RSI, Bollinger, Stochastic - exam-style framings", "Open Interest, Fibonacci, gaps", "Speed drill: 30 technical Qs in 25 min"] },
-    { id: "p7", date: "Aug 9 - Aug 11 (Final stretch)", focus: "Mocks + weak-spot drills", chapters: [8, 10, 14, 15], actions: ["Two full 100-style mocks", "Review every wrong answer with explanation", "Top 30 Recall sprint daily", "One-page formula sheet"] },
-    { id: "p8", date: "Aug 12 (Exam day)", focus: "Exam day", chapters: [], actions: ["Light formula review only - NO new topics", "Reach centre 30 min early", "Skip uncertain numericals first pass", "Attempt 50/50 calls; skip blind ones (-0.25 trap)"] }
+    { id: "p1", date: "Jun 28 - Jul 1 (4 days)", focus: "Foundation rebuild - intuition first", chapters: [1, 2, 3, 4], actions: ["Ch 1: RA role + sell-side/buy-side conduct (story-first)", "Ch 2: market, derivatives, option writer vs buyer payoffs (Arvind/Salim)", "Ch 3: equity + debt vocab, face value, EV vs Mcap, bond types", "Ch 4: risk and return - what beta really means, mosaic vs insider"] },
+    { id: "p2", date: "Jul 2 - Jul 6 (5 days)", focus: "Economy + industry lens", chapters: [5, 6], actions: ["Ch 5: macro - GDP, CPI/WPI, repo/CRR/SLR, FDI vs FPI hot money", "Ch 6: Porter 5, PESTLE, BCG, SCP", "Industry KPI memory (ARPU, NIM, CASA, RevPAR, RASK, SSSG)", "10 questions per chapter end of phase"] },
+    { id: "p3", date: "Jul 7 - Jul 13 (7 days)", focus: "Company analysis - the heaviest block", chapters: [7, 8], actions: ["Ch 7: business model + Clause 49 governance numbers", "Ch 8: Statement Reading Drill (real BS/P&L/CF images)", "Profit cascade, every ratio with intuition, DuPont HighLevCo/LowLevCo", "Forecasting using ratios (the next-year EPS ambush)"] },
+    { id: "p4", date: "Jul 14 - Jul 20 (7 days)", focus: "Valuation deep dive (your biggest gap last time)", chapters: [9, 10], actions: ["Ch 9: split/bonus/rights/buyback/delisting thresholds", "Ch 10: DCF, CAPM, WACC, DDM - intuition before math", "EMBEDDED VALUE for life insurance, P/ABV for NBFC", "Sum of the Parts (SOTP), all earnings + asset multiples"] },
+    { id: "p5", date: "Jul 21 - Jul 26 (6 days)", focus: "Risk, behavioural, reports, regulations", chapters: [11, 12, 13, 14], actions: ["Ch 11: commodities, dollar index, hedge ratio (91.5 MT / 37 contracts)", "Ch 12: 8 biases + Sharpe/Treynor/Jensen", "Ch 13: report structure + Atul Gawande checklist", "Ch 14: SEBI Acts, PIT/UPSI, PFUTP, Reg 16/18/25, CSCRF 5 goals, GSM/ASM"] },
+    { id: "p6", date: "Jul 27 - Jul 30 (4 days)", focus: "Technical analysis - your trader edge", chapters: [15], actions: ["Dow's 6 tenets (Nifty + Sensex confirming), 3 trends, 3 phases", "Chart types + Reversal patterns (Hammer/Hanging Man/Stars)", "MACD 26-12-9, RSI 44-45/50-55 nuance, ADX < 25, RSC vs RSI, OBV1/OBV20", "Speed drill: 30 technical Qs in 25 min"] },
+    { id: "p7", date: "Jul 31 (Final stretch)", focus: "Mocks + weak-spot drills", chapters: [8, 10, 14, 15], actions: ["One full 100-style weighted mock", "Spaced Review - clear all due items", "Review every wrong answer with explanation", "One-page formula sheet review"] },
+    { id: "p8", date: "Aug 1 (Exam day, 10:00-12:00 IIRM Hyderabad)", focus: "Exam day", chapters: [], actions: ["Light formula review only - NO new topics", "Reach IIRM Gachibowli 30 min early", "Skip uncertain numericals first pass", "Attempt 50/50 calls; skip blind ones (-0.25 trap)"] }
   ],
   formulas: [
     {
