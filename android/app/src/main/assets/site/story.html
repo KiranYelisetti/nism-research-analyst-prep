@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NISM-XV: Understand It, Don't Mug It</title>
+<style>
+  :root{
+    --bg:#f7f8fb; --card:#ffffff; --ink:#16202c; --muted:#5b6a7d; --line:#e3e8ef;
+    --gold:#b45309; --goldbg:#fff7e6; --goldline:#f5d9a8;
+    --red:#b91c1c; --redbg:#fdf0ef; --redline:#f3c9c5;
+    --blue:#1d4ed8; --bluebg:#eef4ff; --blueline:#c7d7f5;
+    --green:#15803d; --greenbg:#effaf1; --greenline:#c5e8cd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1520; --card:#171f2c; --ink:#e8edf4; --muted:#9aa8ba; --line:#26303f;
+      --gold:#fbbf24; --goldbg:#2a2213; --goldline:#4a3a1a;
+      --red:#f87171; --redbg:#2a1717; --redline:#4a2424;
+      --blue:#7ea8ff; --bluebg:#141e33; --blueline:#243552;
+      --green:#4ade80; --greenbg:#122417; --greenline:#1f3d27;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding:16px}
+  .wrap{max-width:760px;margin:0 auto}
+  h1{font-size:26px;margin:8px 0 4px}
+  h2{font-size:22px;margin:0 0 4px}
+  h3{font-size:17px;margin:16px 0 6px;color:var(--blue)}
+  p{margin:9px 0}
+  .sub{color:var(--muted);margin:0 0 14px}
+  .banner{background:linear-gradient(135deg,#1d4ed8,#15803d);color:#fff;border-radius:14px;padding:14px 16px;margin:12px 0}
+  .banner b{font-size:18px}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:14px 0;font-size:14px}
+  .toc a{color:var(--blue);text-decoration:none;margin-right:10px;display:inline-block;padding:2px 0}
+  .story{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--gold);border-radius:14px;padding:18px 20px;margin:20px 0}
+  .w{font-size:12px;font-weight:700;color:#fff;background:var(--gold);border-radius:999px;padding:2px 10px;vertical-align:middle;margin-left:8px}
+  .aha{background:var(--goldbg);border:1px solid var(--goldline);border-radius:10px;padding:10px 14px;margin:12px 0}
+  .aha b{color:var(--gold)}
+  .check{background:var(--greenbg);border:1px solid var(--greenline);border-radius:10px;padding:10px 14px;margin:12px 0;font-size:15px}
+  .check b{color:var(--green)}
+  .trap{background:var(--redbg);border:1px solid var(--redline);border-radius:10px;padding:10px 14px;margin:12px 0}
+  .trap b{color:var(--red)}
+  .say{background:var(--bluebg);border:1px solid var(--blueline);border-radius:10px;padding:10px 14px;margin:12px 0;font-weight:600}
+  ul{margin:6px 0 6px 20px;padding:0}
+  li{margin:6px 0}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:var(--bluebg)}
+  .tw{overflow-x:auto}
+  .foot{color:var(--muted);font-size:13px;margin:26px 0 10px;text-align:center}
+  a.jump{color:var(--blue)}
+  @media print{ body{background:#fff;padding:0} .story{break-inside:avoid} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Understand It, Don't Mug It</h1>
+<p class="sub">Six stories. Read them like a comic, not like notes. When you understand a story, the formula rebuilds itself in the exam hall, even if you slept badly.</p>
+
+<div class="banner"><b>How this works:</b> after each story, close your eyes and retell it in ONE line. If you can retell it, you cannot forget it by tomorrow. Stories survive the night. Lists do not.<br><br>These six stories cover 63 marks of the paper, and every single topic that ambushed you in June: balance sheet, EBITDA, next-year EPS, CAPM, embedded value, options payoffs, sell-side conduct, regulations, MACD and trend.</div>
+
+<div class="toc">
+  <b>The stories:</b>
+  <a href="#s1">1. The dosa stall (financial statements)</a>
+  <a href="#s2">2. The money tree (valuation)</a>
+  <a href="#s3">3. Bookings and insurance (options)</a>
+  <a href="#s4">4. You become an RA (regulations)</a>
+  <a href="#s5">5. Grandfather's chart rules (technical)</a>
+  <a href="#s6">6. The sea and the boats (risk and return)</a>
+  <a href="#s7">7. Small stories (pizza, seesaw, juice)</a>
+</div>
+
+<!-- ================= STORY 1 ================= -->
+<div class="story" id="s1">
+<h2>Story 1: The Dosa Stall <span class="w">Ch 8, 12 marks</span></h2>
+
+<p>You open a dosa stall. You put in <b>Rs 6 lakh of your own money</b> and borrow <b>Rs 4 lakh</b> from a lender. You buy a tawa, a grinder, a cart, batter stock, and keep some cash. Freeze that moment and take a photo.</p>
+
+<h3>The photo is the balance sheet</h3>
+<p>The photo has two sides. Left side: everything the stall OWNS: equipment, stock, cash. It adds up to Rs 10 lakh. Right side: WHOSE POCKETS paid for it: your pocket (Rs 6L, called equity or net worth) and the lender's pocket (Rs 4L, called debt or liabilities).</p>
+<div class="aha"><b>Aha:</b> Assets = Liabilities + Equity is not a formula. It is just this sentence: "everything the stall owns was paid for by someone's pocket." It can NEVER be unequal, the same way a photo cannot disagree with itself. And a balance sheet is always a PHOTO of one date, never a video.</div>
+
+<h3>The year happens: the P&amp;L is the video</h3>
+<p>Over the year you sell Rs 12 lakh of dosas. Batter, gas, staff, rent cost Rs 9 lakh. What is left is <b>Rs 3 lakh</b>. Now watch four bites get taken from it, in order:</p>
+<ul>
+  <li><b>Bite 1, the machines:</b> your tawa and grinder wore out a little this year. That wear is <b>depreciation</b>, Rs 0.5L. Nobody took cash from you, but the machines "ate" value. Left: Rs 2.5L (this is EBIT).</li>
+  <li><b>Bite 2, the lender:</b> interest Rs 0.4L. Left: Rs 2.1L (PBT).</li>
+  <li><b>Bite 3, the government:</b> tax Rs 0.6L. Left: <b>Rs 1.5L = PAT</b>, finally yours.</li>
+</ul>
+<div class="aha"><b>Aha:</b> the Rs 3 lakh BEFORE any bites has a fancy name: <b>EBITDA</b>. Earnings Before Interest, Tax, Depreciation, Amortisation. So when the exam says "PAT is 80, tax 20, interest 10, depreciation 15, find EBITDA," you do not remember a formula. You just <b>un-bite</b>: 80 + 20 + 10 + 15 = 125. Walk backwards up the ladder. Any variant (find EBIT, find PBT) is the same ladder, stop at the right rung.</div>
+
+<h3>The passbook: cash flow statement</h3>
+<p>Here is the twist. Swiggy sold your dosas but pays you NEXT month. Your P&amp;L video proudly says profit Rs 1.5L, but your bank passbook got less cash. <b>Profit is an opinion. The passbook is a fact.</b> The passbook has three pockets: <b>Operating</b> (cash from actually selling dosas), <b>Investing</b> (you bought a new tawa, cash OUT), <b>Financing</b> (loan taken or repaid, dividend paid).</p>
+<div class="trap"><b>Exam trap you fell for in June:</b> if PAT keeps rising but operating cash flow keeps falling, the profit is hollow: customers are not actually paying. Rising receivables, falling CFO = red flag. This one idea answers several questions.</div>
+
+<h3>Ratios are a kid's questions about the stall</h3>
+<ul>
+  <li><b>"Can you pay this month's bills?"</b> Current ratio = things that become cash soon / bills due soon. The <b>quick ratio</b> asks the same but throws out the batter stock, because unsold batter is not money yet: (CA − inventory)/CL.</li>
+  <li><b>"Are you over-borrowed?"</b> Debt/Equity = 4/6 = 0.67.</li>
+  <li><b>"Does profit cover the interest easily?"</b> Interest coverage = EBIT/interest = 2.5/0.4 = about 6 times. The lender sleeps peacefully.</li>
+  <li><b>"What do you keep per plate?"</b> Margins: EBITDA/sales, PAT/sales.</li>
+  <li><b>"How hard do your assets sweat?"</b> Asset turnover = sales/assets = 12/10 = 1.2.</li>
+  <li><b>"What did YOUR money earn?"</b> ROE = PAT/your money = 1.5/6 = <b>25%</b>. ROCE asks the same for ALL money: EBIT/capital employed.</li>
+</ul>
+
+<h3>DuPont: WHY is ROE 25%?</h3>
+<p>Three dials multiply: what you keep per rupee of sales (1.5/12 = 12.5%), how fast assets spin into sales (12/10 = 1.2), and how much borrowed money amplifies you (10/6 = 1.67). Multiply: 0.125 x 1.2 x 1.67 = 25%.</p>
+<div class="aha"><b>Aha:</b> borrowing AMPLIFIES ROE the same way leverage amplifies an F&amp;O position. It lifts returns AND risk together. You know this feeling from trading; DuPont just names it: margin x turnover x leverage.</div>
+
+<h3>Next-year EPS (your June ambush)</h3>
+<p>The stall becomes a company with 10,000 shares. PAT Rs 1.5L means EPS = 1,50,000/10,000 = <b>Rs 15</b>. Profit expected to grow 10%? Next year PAT = 1.65L, shares UNCHANGED, so EPS = <b>Rs 16.50</b>. That is the whole trick: grow the profit, divide by the same shares (unless the question says new shares were issued).</p>
+
+<h3>The inspector's stamp: audit opinions</h3>
+<p>An outsider checks your books. Three possible stamps (the workbook lists exactly three): <b>Clean</b> (books are fine), <b>Qualified</b> (fine EXCEPT this specific item), <b>Disclaimer</b> (I could not verify enough to give an opinion).</p>
+
+<div class="say">Say it in one line: "Photo of two pockets, video of four bites, passbook of three pockets, ratios are kid questions, DuPont is three dials, EPS grows with PAT."</div>
+
+<div class="check"><b>Exam asks → you answer:</b><br>
+"Balance sheet shows position for a period" → FALSE, it is one date (photo).<br>
+"PAT 80, tax 20, interest 10, D&amp;A 15, EBITDA?" → un-bite: 125.<br>
+"PAT rising, CFO falling means?" → poor earnings quality, receivables piling.<br>
+"High D/E raises ROE and...?" → risk. Both. Always both.</div>
+</div>
+
+<!-- ================= STORY 2 ================= -->
+<div class="story" id="s2">
+<h2>Story 2: The Money Tree <span class="w">Ch 10, 12 marks</span></h2>
+
+<p>Rs 100 in a fixed deposit at 6% becomes Rs 106 next year. Flip that sentence: <b>Rs 106 arriving next year is worth only Rs 100 today.</b> Future money must be SHRUNK to today. That shrinking is called discounting, and every valuation method in this exam is just: <b>list the future money, shrink it, add it up.</b></p>
+
+<h3>How much shrink? CAPM builds itself</h3>
+<p>Why would you ever leave the safe 6% FD to buy a risky share? Only for EXTRA reward. How much extra? Watch the whole market: historically it pays some bonus above the FD rate, say 6% extra (that is Rm − Rf). Now, if your particular share is <b>1.2 times as wobbly as the market</b> (that wobble multiplier is <b>beta</b>), you demand 1.2 times the market's bonus.</p>
+<div class="aha"><b>Aha:</b> your demanded return = <b>FD rate + your wobble multiplier x market's bonus</b> = 6 + 1.2 x 6 = 13.2%. That sentence IS the formula Ke = Rf + Beta x (Rm − Rf). You cannot forget a sentence about FDs and wobble. In the hall, rebuild it from the sentence.</div>
+
+<h3>The tree itself: Gordon growth</h3>
+<p>A money tree will pay you Rs 10.50 of fruit NEXT year, and its fruit grows 5% forever. You demand 13.2%... let us use 12% for round numbers. Each year, your demanded return shrinks the future by 12%, but the growing fruit refills 5%. Net shrink per year: <b>7%</b>. For a forever-growing stream, the infinite sum collapses into one tiny division:</p>
+<div class="say">Price = next year's fruit / net shrink = 10.50 / 0.07 = Rs 150. That is P0 = D1 / (Ke − g).</div>
+<div class="trap"><b>Two traps:</b> (1) The formula eats NEXT year's dividend D1. If the exam gives you D0 (this year's), grow it first: D1 = D0 x (1+g). Giving you D0 IS the question. (2) g must be smaller than Ke. If the tree grows faster than your shrink, the price becomes infinite, which is nonsense. If an option says g &gt; Ke works, it is wrong.</div>
+
+<h3>WACC: the mixed drink</h3>
+<p>The stall's Rs 10L was 60% your money and 40% loan. Your money costs what CAPM says (say 14%). The loan costs 10%, BUT interest saves tax, so with 25% tax the real cost is 10 x 0.75 = 7.5%. Blend by weight: 0.6 x 14 + 0.4 x 7.5 = <b>11.4%</b>. That blended cost is WACC.</p>
+<div class="aha"><b>Aha for "which rate discounts which cash":</b> money belonging to EVERYONE (FCFF, the whole firm's free cash) is shrunk at everyone's blended rate, WACC. Money belonging to OWNERS ONLY (FCFE, or dividends) is shrunk at the owners' rate, Ke. Match the money to its owner and you never mix them up.</div>
+
+<h3>Multiples: price per square foot</h3>
+<p>You do not always build a DCF to price a flat. You ask "what did similar flats sell per square foot?" Shares have the same shortcuts:</p>
+<ul>
+  <li><b>P/E:</b> how many YEARS of profit you pay upfront. Price 300, EPS 20: you pay 15 years. High P/E = market expects fast growth.</li>
+  <li><b>PEG:</b> P/E divided by growth rate. 15/20 = 0.75. Below 1 = cheap for its growth.</li>
+  <li><b>EV:</b> price of the WHOLE stall: pay for the equity + take over the loan − pocket the cash box: <b>market cap + debt − cash</b>.</li>
+  <li><b>EV/EBITDA:</b> compares stalls fairly even when one has loans and the other does not.</li>
+  <li><b>P/B</b> for banks (their "goods" are money itself), <b>P/ABV</b> for NBFCs, <b>EV/Sales</b> for loss-makers, <b>SOTP</b> (sum of the parts) for a company that is really 3 businesses stapled together.</li>
+</ul>
+
+<h3>Embedded Value: the LIC question that got you</h3>
+<p>How do you value a LIFE INSURER? Their product is 20-year promises. Every policy ALREADY sold will keep sending premiums for years: those future profits are already locked in the drawer. So:</p>
+<div class="say">Embedded Value = net worth today + present value of profits from policies ALREADY sold. "Embedded" = already inside. It does NOT count future new customers.</div>
+<div class="check"><b>Exam asks → you answer:</b><br>
+"Valuation method specific to life insurance?" → Embedded Value.<br>
+"Rf 6, beta 1.2, Rm 12, required return?" → 6 + 1.2x(12−6) = 13.2%.<br>
+"D0 = 10, g 5%, Ke 12%, price?" → D1 = 10.5 first, then 10.5/0.07 = 150.<br>
+"FCFF is discounted at?" → WACC. FCFE? → cost of equity.<br>
+"Firm value including debt is measured by?" → EV, not market cap.</div>
+</div>
+
+<!-- ================= STORY 3 ================= -->
+<div class="story" id="s3">
+<h2>Story 3: Bookings and Insurance <span class="w">options, your June ambush</span></h2>
+
+<p>Two everyday deals you already understand ARE the two options.</p>
+
+<h3>A CALL is a flat booking</h3>
+<p>You pay the builder Rs 1L booking amount (the <b>premium</b>) for the RIGHT to buy a flat at Rs 50L (the <b>strike</b>) within a year. Flat prices jump to Rs 60L: you exercise your booking, buy at 50, effectively gain 10 minus the 1 you paid. Prices crash to 40L: you simply walk away. Your loss? Only the booking amount. Ever. That is the whole magic of being a BUYER: <b>you have a right, not a duty, so your maximum loss is the premium, full stop.</b></p>
+<p>Now stand in the builder's shoes (the <b>writer</b>). He pocketed your 1L. If prices stay down, he keeps it: that is his MAXIMUM possible profit, the premium. But if prices explode to 80L, you will demand your flat at 50L and he MUST deliver: his loss has no ceiling.</p>
+
+<h3>A PUT is bike insurance</h3>
+<p>You pay a premium for the RIGHT to "sell" your bike to the insurer at Rs 1L (strike) if disaster strikes. Bike price collapses toward zero: you claim, and your gain approaches strike minus premium. Bike stays fine: you lose only the premium. The INSURER (put writer) keeps the premium at best, and at worst pays out nearly the whole strike (minus the premium collected).</p>
+
+<div class="aha"><b>Aha:</b> you never memorize the payoff table. In the hall, ask two questions: (1) <b>Who paid the premium?</b> That person holds a RIGHT and can lose only the premium. The other person holds a DUTY and can gain only the premium. (2) <b>Which direction is the right?</b> Call = right to BUY (booking). Put = right to SELL (insurance). Now fill any cell they ask.</p></div>
+
+<div class="tw"><table>
+<tr><th></th><th>Buyer (paid premium, has RIGHT)</th><th>Writer (took premium, has DUTY)</th></tr>
+<tr><td><b>Call</b> (booking)</td><td>max loss = premium, max gain = unlimited</td><td>max gain = premium, max loss = unlimited</td></tr>
+<tr><td><b>Put</b> (insurance)</td><td>max loss = premium, max gain = strike − premium</td><td>max gain = premium, max loss = strike − premium</td></tr>
+</table></div>
+
+<p><b>Futures</b> are different: BOTH sides are locked in, nobody can walk away, no premium changes hands upfront. An option binds only the writer.</p>
+
+<div class="check"><b>Exam asks → you answer:</b><br>
+"Maximum loss of a put writer?" → strike − premium (bike goes to zero, he pays out).<br>
+"Maximum profit of any option writer?" → the premium. Always.<br>
+"Option gives buyer...?" → a right, never an obligation.<br>
+"Who faces unlimited loss?" → the call writer.</div>
+</div>
+
+<!-- ================= STORY 4 ================= -->
+<div class="story" id="s4">
+<h2>Story 4: You Become an RA <span class="w">Ch 14, 10 marks</span></h2>
+
+<p>Tomorrow afternoon you pass. Walk through what happens next, because the regulations are literally the story of YOUR next year.</p>
+
+<h3>Getting the badge</h3>
+<ul>
+  <li>To register you need a <b>graduate degree + this NISM-XV certificate</b> (Regulation 7).</li>
+  <li>You park a <b>deposit</b> with <b>RAASB</b>, the RA Administration and Supervisory Body that BSE runs for SEBI (Regulation 8).</li>
+  <li>Your certificate comes via <b>Form B</b> if full-time, <b>Form C</b> if part-time (Regulation 9).</li>
+</ul>
+
+<h3>The three commandments of the job</h3>
+<ul>
+  <li><b>Do not front-run your readers (Reg 16):</b> no dealing in a stock you cover from <b>30 days BEFORE to 5 days AFTER</b> your report. Why those windows? Before: your research brews and you could quietly load up. After: your report moves the price and you could cash the bump. Also: never trade AGAINST your own recommendation, and no pre-IPO shares in an industry you cover.</li>
+  <li><b>Confess in print (Reg 19):</b> your holdings in the stock, who pays you, any relationship. Confession REVEALS a conflict; it does not erase it. (That exact line is an exam question.)</li>
+  <li><b>Keep your homework 5 years (Reg 25):</b> SEBI may knock and ask "show me why you wrote Buy."</li>
+</ul>
+
+<h3>The reporter rule (sell-side conduct, your June miss)</h3>
+<p>You are like a journalist covering companies. Interviewing the CFO is fine. Stitching PUBLIC scraps (results, filings, channel checks) into an insight is your actual job: that is <b>mosaic analysis</b>, fully legal. But the second someone slips you UNPUBLISHED price-moving information (<b>UPSI</b>), two things become crimes: trading on it AND passing it along. Both. That is insider trading (PIT Regulations).</p>
+
+<h3>Furniture of the chapter (fast facts that repeat in exams)</h3>
+<ul>
+  <li><b>Mandatory disclaimer:</b> SEBI registration and NISM certification do NOT guarantee performance or returns.</li>
+  <li><b>Complaints:</b> investor files on SCORES, resolve within <b>21 days</b>; escalation goes to SMARTODR (online dispute resolution).</li>
+  <li><b>GSM/ASM:</b> the exchanges' naughty corner: extra surveillance leashes on risky stocks.</li>
+  <li><b>Referee map:</b> SEBI securities, RBI banks and money, IRDAI insurance, PFRDA pensions, MCA companies, IBBI bankruptcy.</li>
+  <li><b>Act years chant:</b> SCRA <b>1956</b>, SEBI Act <b>1992</b>, Depositories <b>1996</b>, PMLA <b>2002</b>, Companies Act <b>2013</b>, IBC <b>2016</b>.</li>
+  <li><b>PFUTP:</b> the anti-cheating rulebook: no fraud, no pump and dump, no misleading tips.</li>
+  <li><b>Cyber framework CSCRF, 5 goals:</b> Anticipate, Withstand, Contain, Recover, Evolve.</li>
+</ul>
+
+<div class="say">Say it in one line: "Degree plus cert, deposit with RAASB, Form B or C; then: no trading 30-before-5-after, confess conflicts, keep records 5 years; mosaic legal, UPSI criminal."</div>
+
+<div class="check"><b>Exam asks → you answer:</b><br>
+"RA published report Aug 15, when could she last trade the stock?" → not between Jul 16 and Aug 20.<br>
+"Disclosure cures conflict of interest" → FALSE, it only reveals it.<br>
+"Analyst meets management and uses public info" → allowed (mosaic).<br>
+"Which body administers RAs?" → RAASB (with SEBI as regulator).</div>
+</div>
+
+<!-- ================= STORY 5 ================= -->
+<div class="story" id="s5">
+<h2>Story 5: Grandfather's Chart Rules <span class="w">Ch 15, 15 marks</span></h2>
+
+<p>You already trade. Tomorrow's paper does not test YOUR technical analysis: it tests <b>Charles Dow's 1900s textbook version</b>. Answer as the respectful grandchild, not as the intraday trader.</p>
+
+<h3>Grandfather Dow's six house rules</h3>
+<ul>
+  <li>The index has already heard all the news (<b>discounts everything</b>).</li>
+  <li>Markets move in three sizes: the <b>tide</b> (primary, months to years), the <b>waves</b> against it (secondary), the <b>ripples</b> (minor).</li>
+  <li>A big tide has three chapters: smart money quietly buys (<b>accumulation</b>), the crowd piles in (<b>public participation</b>), smart money hands the bags over (<b>distribution</b>).</li>
+  <li>Two indices must AGREE before you believe a trend: workbook uses <b>Nifty AND Sensex confirming each other</b>.</li>
+  <li><b>Volume must travel WITH the trend</b> (rally on rising volume = healthy).</li>
+  <li>A trend stays innocent until PROVEN reversed.</li>
+</ul>
+
+<h3>Indicator name-plates (the exam's favourite question type)</h3>
+<p>The exam asks "what does X measure," not "how do you trade X."</p>
+<ul>
+  <li><b>RSI:</b> momentum thermometer, 100 − 100/(1+RS). Above 70 = overbought zone, below 30 = oversold. Overbought is a WARNING, not an auto-sell.</li>
+  <li><b>ADX:</b> trend STRENGTH meter with NO compass. It never tells direction. Below 25 = weak or no trend.</li>
+  <li><b>MACD:</b> the gap between the fast 12 EMA and slow 26 EMA, with a 9 EMA signal line. Widening gap = growing momentum.</li>
+  <li><b>OBV:</b> a voting machine: adds volume on up days, subtracts on down days.</li>
+  <li><b>RSC:</b> Relative Strength COMPARATIVE = stock versus index. NOT the same as RSI. Classic decoy pair.</li>
+</ul>
+
+<h3>Candles and patterns, with the logic</h3>
+<ul>
+  <li><b>Hammer</b> after a fall: sellers pushed all day, buyers slammed it back up: sellers exhausted, possible reversal up. <b>Hanging man</b> is the same shape after a RISE: warning of reversal down.</li>
+  <li><b>Engulfing:</b> today's candle swallows yesterday's whole body: the other side just took over.</li>
+  <li><b>Morning star</b> = night ends, bullish reversal. <b>Evening star</b> = night begins, bearish. Dark cloud cover and piercing pattern are two-candle versions.</li>
+  <li><b>Triangles, flags, pennants</b> = the market taking a tea break: CONTINUATION. Head and shoulders, double top = U-turns: REVERSAL.</li>
+  <li><b>Support becomes resistance</b> after a breakdown (the floor you fell through becomes your ceiling).</li>
+</ul>
+
+<div class="trap"><b>Your specific June leak:</b> you answered like a trader. Tomorrow, if chart-you and textbook-you disagree, textbook wins. ADX has no direction. Dow needs BOTH indices. MACD is 12, 26, 9.</div>
+</div>
+
+<!-- ================= STORY 6 ================= -->
+<div class="story" id="s6">
+<h2>Story 6: The Sea and the Boats <span class="w">Ch 12, 7 marks</span></h2>
+
+<p>Every stock is a boat. Two things shake a boat: <b>the sea</b> (the whole market moving: elections, rate hikes, war) and <b>the boat's own leaks</b> (a bad CEO, a factory fire).</p>
+<ul>
+  <li><b>Standard deviation</b> measures TOTAL shaking (sea + leaks).</li>
+  <li><b>Beta</b> measures only the sea's part: how hard THIS boat rocks when the sea moves. Market = 1. Beta 1.2 = rocks 20% harder than the sea.</li>
+  <li><b>Diversification</b> (holding 15 to 20 boats) cancels the leaks, because one boat's fire does not spread. It can NEVER calm the sea. That is why market risk is called non-diversifiable.</li>
+</ul>
+
+<h3>Judging a captain: three report cards</h3>
+<ul>
+  <li><b>Sharpe:</b> extra return earned per unit of TOTAL shaking: (Rp − Rf)/SD. Portfolio made 14%, FD 6%, shaking 8: (14−6)/8 = 1.0.</li>
+  <li><b>Treynor:</b> same, but per unit of SEA only: (Rp − Rf)/beta.</li>
+  <li><b>Jensen's alpha:</b> did the captain beat what CAPM promised for that beta? Actual minus expected.</li>
+</ul>
+
+<h3>The honest average and friends</h3>
+<ul>
+  <li><b>CAGR:</b> Rs 100 became Rs 150 in 3 years. NOT 16.7% a year. Growth compounds, so the honest rate is (150/100)^(1/3) − 1 = <b>14.5%</b>.</li>
+  <li><b>Expected return</b> is a weighted coin game: 50% chance of 20, 30% of 10, 20% of −5: 10 + 3 − 1 = <b>12%</b>.</li>
+  <li><b>Real return:</b> inflation eats first. 12% nominal in 6% inflation is (1.12/1.06) − 1 = about <b>5.7%</b>, not 6.</li>
+  <li><b>Margin of safety:</b> buying a Rs 100 note for Rs 70. The Rs 30 gap is your cushion for being wrong.</li>
+</ul>
+
+<div class="check"><b>Exam asks → you answer:</b><br>
+"Which risk does diversification remove?" → unsystematic (the leaks).<br>
+"Beta measures?" → sensitivity to market moves, nothing about business quality.<br>
+"Sharpe uses which risk?" → total (SD). Treynor? → beta.</div>
+</div>
+
+<!-- ================= STORY 7 ================= -->
+<div class="story" id="s7">
+<h2>Story 7: Small Stories, Easy Marks <span class="w">Ch 9 + Ch 3</span></h2>
+
+<h3>The pizza shop (corporate actions)</h3>
+<ul>
+  <li><b>Bonus issue:</b> the shop cuts your pizza into MORE slices. You hold more slices of the SAME pizza: price per slice drops, your wealth unchanged. Paid out of free reserves, no cash leaves, and a defaulting company cannot do it.</li>
+  <li><b>Split:</b> same idea done by reprinting the menu: the FACE value is cut (Rs 10 becomes Rs 2).</li>
+  <li><b>Rights issue:</b> family-first sale: existing holders may buy new slices at a discount, window open 15 to 30 days. The new fair price is just the <b>mixed juice price</b>: 4 old glasses at Rs 100 + 1 new at Rs 80 = 480/5 = <b>Rs 96</b>. That mix is TERP.</li>
+  <li><b>Buyback:</b> the shop eats some of its own slices. Fewer slices, same profit: EPS per slice RISES.</li>
+  <li><b>Dividend:</b> declared as a % of FACE value (200% on FV 10 = Rs 20 per share, NOT 200% of market price), must be PAID within 30 days of declaration. Buy BEFORE the ex-date to receive it.</li>
+</ul>
+
+<h3>The seesaw (bonds)</h3>
+<ul>
+  <li>A bond pays a FIXED coupon on its FACE value. When market rates RISE, your old stingy bond looks worse, so its PRICE falls. Rates and prices sit on a <b>seesaw</b>.</li>
+  <li><b>Current yield</b> = coupon / market PRICE (not face value): 8 coupon on a bond priced 90 = 8.89%. <b>YTM</b> = your all-in return if you hold to maturity.</li>
+  <li><b>Duration</b> = how FAR AWAY your money sits. Longer maturity or smaller coupons = money further away = the seesaw swings harder on rate moves.</li>
+</ul>
+
+<div class="check"><b>Exam asks → you answer:</b><br>
+"After bonus, shareholder wealth?" → unchanged (more slices, same pizza).<br>
+"Cum-price 100, ratio 1:4 at 80, ex-rights price?" → (400+80)/5 = 96.<br>
+"Rates rise, bond price?" → falls. "Longer maturity means duration?" → higher.</div>
+</div>
+
+<div class="banner"><b>Now the day makes sense:</b> read these 7 stories first (about 2.5 to 3 hours, retell each in one line). THEN open the <a class="jump" style="color:#fff;text-decoration:underline" href="cram.html">cram sheet</a>: it will feel like revision of things you understand, not mugging. Then drills on the dashboard, then tonight's timed 100. Tomorrow 8 AM you only reread the cram page's Formula Wall, and every formula on it will unfold back into one of these stories.</div>
+
+<p class="foot">Nothing here is memorised. It is a dosa stall, a money tree, a flat booking, your own next year, your grandfather's rules, boats on a sea, and a pizza. You already understand your life. Now it answers 63 marks.</p>
+
+</div>
+</body>
+</html>

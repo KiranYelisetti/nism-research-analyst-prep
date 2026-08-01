@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NISM-XV Cram Sheet (Exam Eve)</title>
+<style>
+  :root{
+    --bg:#f7f8fb; --card:#ffffff; --ink:#16202c; --muted:#5b6a7d; --line:#e3e8ef;
+    --gold:#b45309; --goldbg:#fff7e6; --goldline:#f5d9a8;
+    --red:#b91c1c; --redbg:#fdf0ef; --redline:#f3c9c5;
+    --blue:#1d4ed8; --bluebg:#eef4ff; --blueline:#c7d7f5;
+    --green:#15803d; --greenbg:#effaf1; --greenline:#c5e8cd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1520; --card:#171f2c; --ink:#e8edf4; --muted:#9aa8ba; --line:#26303f;
+      --gold:#fbbf24; --goldbg:#2a2213; --goldline:#4a3a1a;
+      --red:#f87171; --redbg:#2a1717; --redline:#4a2424;
+      --blue:#7ea8ff; --bluebg:#141e33; --blueline:#243552;
+      --green:#4ade80; --greenbg:#122417; --greenline:#1f3d27;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding:16px}
+  .wrap{max-width:780px;margin:0 auto}
+  h1{font-size:26px;margin:8px 0 4px}
+  h2{font-size:21px;margin:0 0 6px}
+  h3{font-size:16px;margin:14px 0 6px}
+  p{margin:8px 0}
+  .sub{color:var(--muted);margin:0 0 14px}
+  .banner{background:linear-gradient(135deg,#b45309,#b91c1c);color:#fff;border-radius:14px;padding:14px 16px;font-weight:700;font-size:18px;margin:12px 0}
+  .banner small{display:block;font-weight:400;opacity:.92;margin-top:4px;font-size:13px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--muted)}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:14px 0;font-size:14px}
+  .toc a{color:var(--blue);text-decoration:none;margin-right:10px;display:inline-block;padding:2px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:14px;padding:16px 18px;margin:18px 0}
+  .w{font-size:13px;font-weight:700;color:#fff;background:var(--blue);border-radius:999px;padding:2px 10px;vertical-align:middle;margin-left:8px}
+  .kid{background:var(--goldbg);border:1px solid var(--goldline);border-radius:10px;padding:10px 14px;margin:10px 0}
+  .kid b{color:var(--gold)}
+  .trap{background:var(--redbg);border:1px solid var(--redline);border-radius:10px;padding:10px 14px;margin:10px 0}
+  .trap b{color:var(--red)}
+  .fx{background:var(--bluebg);border:1px solid var(--blueline);border-radius:10px;padding:10px 14px;margin:10px 0;font-size:15px}
+  .fx b{color:var(--blue)}
+  .win{background:var(--greenbg);border:1px solid var(--greenline);border-radius:10px;padding:10px 14px;margin:10px 0}
+  .win b{color:var(--green)}
+  ul{margin:6px 0 6px 20px;padding:0}
+  li{margin:5px 0}
+  code{background:var(--bluebg);border-radius:6px;padding:1px 6px;font-size:14px}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:var(--bluebg)}
+  .tw{overflow-x:auto}
+  .grp td[colspan]{background:var(--goldbg);font-weight:700}
+  .foot{color:var(--muted);font-size:13px;margin:26px 0 10px;text-align:center}
+  @media print{ body{background:#fff;padding:0} .card{break-inside:avoid} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>NISM-XV Cram Sheet</h1>
+<p class="sub">Exam: Saturday Aug 1, 10:00 to 12:00, IIRM Hyderabad. Kid-level stories for the big chapters, then every formula with a tiny worked example.</p>
+<p class="sub"><b>Feels like mugging?</b> Read <a href="story.html" style="color:#1d4ed8">Story Mode</a> FIRST. It builds every formula here from a story, so this page becomes revision instead of memorization.</p>
+
+<div class="banner">Answer ALL 100 questions. 68 correct = 60 marks = PASS.
+<small>Score = 1.25 x (correct) minus 25 when you attempt everything. Last time you got 51 right. You need 17 more. That is the whole game.</small></div>
+
+<div class="chips">
+  <span class="chip">80 MCQs + 5 caselets x 4</span>
+  <span class="chip">2 hours</span>
+  <span class="chip">Wrong: -0.25</span>
+  <span class="chip">Big six chapters = 64 marks</span>
+</div>
+
+<div class="toc">
+  <b>Jump:</b>
+  <a href="#c15">Ch15 Technical (15)</a>
+  <a href="#c8">Ch8 Financials (12)</a>
+  <a href="#c10">Ch10 Valuation (12)</a>
+  <a href="#c14">Ch14 Legal (10)</a>
+  <a href="#c6">Ch6 Industry (8)</a>
+  <a href="#c12">Ch12 Risk & Return (7)</a>
+  <a href="#quick">Quick wins (31)</a>
+  <a href="#wall">Formula Wall</a>
+  <a href="#tactics">Exam tactics</a>
+</div>
+
+<!-- ============ CH 15 ============ -->
+<div class="card" id="c15">
+<h2>Ch 15: Technical Analysis <span class="w">15 marks</span></h2>
+<div class="kid"><b>Like you are 10:</b> price charts are footprints in the sand. You cannot see the animal (buyers and sellers), but the footprints tell you which way it walked and how heavy it was (volume). Technical analysis reads footprints. It never asks what the animal is worth. That is fundamental analysis's job.</div>
+<h3>Must know</h3>
+<ul>
+  <li><b>Dow Theory, 6 ideas:</b> (1) the index discounts everything, (2) three trends: primary (the tide, months to years), secondary (waves against the tide), minor (ripples), (3) primary trends have 3 phases: accumulation, public participation, distribution, (4) indices must CONFIRM each other (workbook uses Nifty AND Sensex agreeing), (5) volume must confirm the trend, (6) a trend continues until there is clear proof of reversal.</li>
+  <li><b>Reversal candles:</b> hammer, hanging man, bullish/bearish engulfing, dark cloud cover, piercing pattern, morning star, evening star.</li>
+  <li><b>Continuation patterns:</b> symmetrical, ascending, descending triangles, flags, pennants.</li>
+  <li><b>Support/resistance:</b> floor and ceiling. After a breakdown, old support becomes new resistance (role reversal).</li>
+  <li><b>Indicators:</b> RSI = momentum (70 overbought, 30 oversold). ADX = trend STRENGTH only, below 25 means weak or no trend. MACD = 12 EMA minus 26 EMA with a 9 period signal line. OBV adds volume on up days, subtracts on down days. RSC compares a stock with the index (not the same as RSI).</li>
+</ul>
+<div class="fx"><b>Formulas:</b> MACD = 12-period EMA − 26-period EMA (signal = 9 EMA). RSI = 100 − 100/(1+RS), where RS = average gain / average loss. Example: RS = 3 gives RSI = 100 − 100/4 = 75, in the overbought zone.</div>
+<div class="trap"><b>Traps that got you last time:</b> answer as the WORKBOOK says, not as your trading screen says. ADX never gives direction. Overbought RSI is a warning, not an automatic sell. Dow confirmation = Nifty plus Sensex.</div>
+</div>
+
+<!-- ============ CH 8 ============ -->
+<div class="card" id="c8">
+<h2>Ch 8: Financial Analysis <span class="w">12 marks</span></h2>
+<div class="kid"><b>Like you are 10:</b> a company gives you 3 documents. The <b>balance sheet</b> is a PHOTO on one date: what it owns and what it owes. The <b>P&amp;L</b> is a VIDEO of the whole year: what it earned and spent. The <b>cash flow statement</b> is the BANK PASSBOOK: profit is opinion, cash is fact. Cash flow has 3 pockets: Operating (the shop itself), Investing (buying/selling machines), Financing (loans, shares, dividends).</div>
+<h3>Must know</h3>
+<ul>
+  <li><b>Profit cascade:</b> Sales − operating costs = EBITDA. Minus depreciation and amortisation = EBIT. Minus interest = PBT. Minus tax = PAT.</li>
+  <li><b>EBITDA from PAT:</b> PAT + tax + interest + depreciation and amortisation. Example: 80 + 20 + 10 + 15 = 125.</li>
+  <li><b>Ratio families:</b> liquidity (current, quick), leverage (debt/equity, interest coverage), profitability (GPM, OPM, NPM, ROE, ROCE), efficiency (turnovers and days).</li>
+  <li><b>DuPont:</b> ROE = net margin x asset turnover x leverage. Example: 10% x 1.2 x 1.5 = 18%. It shows WHERE the ROE comes from.</li>
+  <li><b>Quality check:</b> PAT rising while CFO falls = earnings may be hollow (receivables piling up).</li>
+  <li><b>Audit opinions (workbook lists 3):</b> Clean (all fine), Qualified ("fine EXCEPT this"), Disclaimer (auditor could not verify enough to opine).</li>
+  <li><b>Next-year EPS:</b> grow PAT, divide by shares. PAT 200 cr growing 10% = 220 cr, on 20 cr shares, EPS = Rs 11.</li>
+</ul>
+<div class="fx"><b>Formulas:</b> Current ratio = CA/CL. Quick ratio = (CA − inventory)/CL, example (200 − 80)/100 = 1.2. Debt/Equity = total debt/net worth. Interest coverage = EBIT/interest, example 120/30 = 4x. ROE = PAT/net worth. ROCE = EBIT/capital employed. NPM = PAT/sales. Inventory days = 365/inventory turnover. EPS = PAT/number of shares.</div>
+<div class="trap"><b>Traps:</b> balance sheet = point in time, P&amp;L and cash flow = period. High leverage can LIFT ROE while raising risk. High current ratio is not automatically good (could be dead inventory). Notes and audit qualifications can flip the story.</div>
+</div>
+
+<!-- ============ CH 10 ============ -->
+<div class="card" id="c10">
+<h2>Ch 10: Valuation <span class="w">12 marks</span></h2>
+<div class="kid"><b>Like you are 10:</b> price is what the shop asks, value is what the toy is worth. Two ways to find value. Way 1, <b>DCF family</b>: a share is a money tree, so add up all the future fruit, shrunk for waiting time and risk. Way 2, <b>multiples</b>: check what similar toys sold for (P/E, EV/EBITDA), like pricing a house per square foot.</div>
+<h3>Must know</h3>
+<ul>
+  <li><b>Gordon growth (DDM):</b> P0 = D1/(Ke − g). D1 is NEXT year's dividend = D0 x (1+g). Example: D0 = 10, g = 5%, Ke = 12%. D1 = 10.50, so P = 10.50/0.07 = Rs 150. Rule: g must be BELOW Ke.</li>
+  <li><b>CAPM:</b> Ke = Rf + Beta x (Rm − Rf). Example: 6 + 1.2 x (12 − 6) = 13.2%.</li>
+  <li><b>WACC:</b> Ke x We + Kd x (1 − tax) x Wd. Example: 0.6 x 14 + 0.4 x 10 x 0.75 = 11.4%. Debt is cheaper because interest saves tax.</li>
+  <li><b>Which cash flow, which rate:</b> FCFF (whole firm) discount at WACC. FCFE (equity only) discount at Ke. Dividends discount at Ke.</li>
+  <li><b>Multiples:</b> P/E (price per rupee of profit, 300/20 = 15x), PEG = PE/growth (15/20 = 0.75, below 1 looks cheap for the growth), P/B for banks, P/ABV for NBFCs, EV/EBITDA (ignores capital structure, good across leverage), EV/Sales for loss makers, SOTP for conglomerates.</li>
+  <li><b>Embedded Value:</b> for LIFE INSURERS only. Net worth + present value of profits from policies ALREADY sold. This ambushed you last time. If the question says life insurance valuation, the answer is embedded value.</li>
+  <li><b>Terminal value</b> and the discount rate drive most of any DCF answer.</li>
+</ul>
+<div class="trap"><b>Traps:</b> market cap is equity only; EV = market cap + debt − cash is the whole business. P/E lies when EPS has one-off items or heavy leverage. In Gordon growth, remember to grow D0 into D1 first, that step IS the exam question.</div>
+</div>
+
+<!-- ============ CH 14 ============ -->
+<div class="card" id="c14">
+<h2>Ch 14: Legal and Regulatory <span class="w">10 marks</span></h2>
+<div class="kid"><b>Like you are 10:</b> every playground has referees. SEBI referees the securities playground. RBI referees banks and money. IRDAI insurance, PFRDA pensions, MCA companies, IBBI bankruptcy. And there is a special rulebook just for YOU, the Research Analyst Regulations 2014.</div>
+<h3>Must know: the RA rulebook by regulation number</h3>
+<ul>
+  <li><b>Reg 7:</b> qualification: graduate degree + NISM-XV certificate (this exam).</li>
+  <li><b>Reg 8:</b> deposit requirement, kept with RAASB (RA Administration and Supervisory Body, run by BSE).</li>
+  <li><b>Reg 9:</b> certificate granted: Form B full-time, Form C part-time RA.</li>
+  <li><b>Reg 16:</b> trading restrictions: do NOT deal in the subject company's securities from 30 days BEFORE to 5 days AFTER your report. Never trade against your own recommendation. No pre-IPO shares in an industry you cover.</li>
+  <li><b>Reg 19:</b> disclose conflicts (holdings, compensation, relationships) in the report.</li>
+  <li><b>Reg 25:</b> keep records 5 years.</li>
+  <li><b>Mandatory disclaimer:</b> SEBI registration and NISM certification do NOT guarantee performance or returns.</li>
+</ul>
+<h3>The rest of the chapter</h3>
+<ul>
+  <li><b>Acts and years (memorise the line):</b> SCRA 1956, SEBI Act 1992, Depositories Act 1996, PMLA 2002, Companies Act 2013, IBC 2016.</li>
+  <li><b>Insider trading (PIT):</b> UPSI = unpublished price sensitive information. Trading on it AND passing it on are both banned. Mosaic of public pieces is fine.</li>
+  <li><b>PFUTP:</b> bans fraud, pump and dump, misleading tips.</li>
+  <li><b>GSM/ASM:</b> exchange surveillance leashes on risky stocks.</li>
+  <li><b>SCORES:</b> investor complaints, resolve in 21 days. Next step: SMARTODR (online dispute resolution).</li>
+  <li><b>CSCRF cyber framework, 5 goals:</b> Anticipate, Withstand, Contain, Recover, Evolve.</li>
+</ul>
+<div class="trap"><b>Traps:</b> disclosure does not CURE a conflict, it only reveals it. Know WHICH regulator for which job. Sell-side conduct questions: you may meet management, you may never seek or use UPSI.</div>
+</div>
+
+<!-- ============ CH 6 ============ -->
+<div class="card" id="c6">
+<h2>Ch 6: Industry Analysis <span class="w">8 marks</span></h2>
+<div class="kid"><b>Like you are 10:</b> before judging one shop, study the whole street. Some streets are easy to earn on (few shops, loyal customers), some are brutal (shops everywhere, price wars). Porter's five forces is the checklist for how brutal the street is.</div>
+<h3>Must know</h3>
+<ul>
+  <li><b>Porter's 5:</b> rivalry among existing players, supplier power, buyer power, threat of substitutes, threat of new entrants.</li>
+  <li><b>Industry life cycle:</b> pioneer (losses, promise), growth (fast sales, best returns), maturity (slow, stable), decline.</li>
+  <li><b>BCG matrix:</b> stars (high growth, high share), cash cows (low growth, high share), question marks (high growth, low share), dogs (low, low).</li>
+  <li><b>Frameworks:</b> PESTLE (political, economic, social, technological, legal, environmental), SCP (structure, conduct, performance).</li>
+  <li><b>KPIs must match the business:</b> banks: NIM, CASA, NPA, CAR. Telecom: ARPU. Hotels: occupancy, RevPAR. Airlines: load factor. Retail: same-store sales growth.</li>
+</ul>
+<div class="trap"><b>Traps:</b> a high-growth industry can still destroy investors if competition kills returns (airlines). Define the industry boundary BEFORE sizing the market.</div>
+</div>
+
+<!-- ============ CH 12 ============ -->
+<div class="card" id="c12">
+<h2>Ch 12: Risk and Return <span class="w">7 marks</span></h2>
+<div class="kid"><b>Like you are 10:</b> return is the prize, risk is how wobbly the ride is. Two kinds of wobble: the whole sea moving (market risk, nobody escapes, measured by beta) and your own boat leaking (company risk, fixable by holding many boats). Diversification plugs boat leaks, it cannot calm the sea.</div>
+<h3>Must know</h3>
+<ul>
+  <li><b>Holding period return:</b> (end price − start price + dividends)/start price.</li>
+  <li><b>CAGR:</b> (end/start)^(1/years) − 1. Example: 100 to 150 in 3 years = 14.5% per year, NOT 16.7%.</li>
+  <li><b>Expected return:</b> sum of probability x outcome. 0.5x20 + 0.3x10 + 0.2x(−5) = 12%.</li>
+  <li><b>Standard deviation = total risk. Beta = market risk only.</b> Market beta = 1, high beta = jumpier than market.</li>
+  <li><b>Sharpe:</b> (Rp − Rf)/standard deviation. Example (14 − 6)/8 = 1.0. Treynor uses beta instead. Jensen's alpha = actual return − CAPM return.</li>
+  <li><b>Margin of safety:</b> buy below intrinsic value; the gap is your cushion.</li>
+  <li><b>Liquidity of a stock:</b> volumes, bid-ask spread, impact cost.</li>
+  <li><b>Biases:</b> overconfidence, anchoring, herding, loss aversion, confirmation, recency, endowment, mental accounting.</li>
+</ul>
+<div class="trap"><b>Traps:</b> compounded (CAGR) is not the average of yearly returns. Beta measures market sensitivity, not business quality. Real return needs inflation removed: 12% nominal with 6% inflation is about 5.7% real, not 6%.</div>
+</div>
+
+<!-- ============ QUICK WINS ============ -->
+<div class="card" id="quick" style="border-left-color:#15803d">
+<h2>Quick wins: the other 31 marks in 20 minutes</h2>
+
+<div class="win"><b>Ch 9 Corporate Actions (5):</b> dividend is declared as % of FACE value, paid within 30 days of declaration. Buy BEFORE the ex-date to get it. Bonus = free slices of the same pizza (more shares, price adjusts, your wealth unchanged, needs free reserves, blocked if company defaulted). Split = cutting the face value. Rights = existing holders may buy new shares at a discount, offer stays open 15 to 30 days. Buyback = company eats its own shares, EPS rises. <b>TERP</b> = (old shares x cum price + new shares x rights price)/(total shares). Example: 4 @ 100 plus 1 @ 80 = 480/5 = Rs 96.</div>
+
+<div class="win"><b>Ch 2 Options payoffs (your June ambush):</b>
+<div class="tw"><table>
+<tr><th></th><th>Buyer (pays premium, has RIGHT)</th><th>Writer (gets premium, has OBLIGATION)</th></tr>
+<tr><td><b>Call</b></td><td>Right to BUY at strike. Max loss = premium. Max gain = unlimited.</td><td>Must SELL if asked. Max gain = premium. Max loss = unlimited.</td></tr>
+<tr><td><b>Put</b></td><td>Right to SELL at strike. Max loss = premium. Max gain = strike − premium.</td><td>Must BUY if asked. Max gain = premium. Max loss = strike − premium.</td></tr>
+</table></div>
+Futures bind BOTH sides. Options bind only the writer.</div>
+
+<div class="win"><b>Ch 3 Terms and bonds (2):</b> face value (printed), book value (accounts), market value (exchange), intrinsic value (your estimate). Market cap = price x shares. EV = market cap + debt − cash (1000 + 300 − 100 = 1200). Current yield = annual coupon / market PRICE, not face value: 8% coupon on FV 100 priced at 90 = 8/90 = 8.89%. YTM = the IRR if held to maturity. Bond prices and interest rates move OPPOSITE. Duration rises with longer maturity and lower coupon; higher duration = more rate sensitivity.</div>
+
+<div class="win"><b>Ch 11 Commodities (5):</b> prices ride supply-demand, inventories, weather, policy, and the dollar (strong dollar pressures commodity prices). Domestic price can differ from global because of currency, duties, local supply. <b>Hedge ratio</b> links exposure to futures: hedging 100 MT with ratio 0.915 means cover 91.5 MT; at 2.5 MT per contract that is 37 contracts (the workbook's own example).</div>
+
+<div class="win"><b>Ch 5 Economy (5):</b> fiscal policy = government's spending and taxes. Monetary policy = RBI's rates and money supply. Repo up = brakes on the economy. CRR = cash banks park with RBI. SLR = government securities banks hold themselves. CPI = your shopping basket, WPI = wholesale. FDI = long-term factory money, FPI = hot portfolio money that can leave overnight. PMI above 50 = expansion. Trends: secular (decades), cyclical (business cycle), seasonal (calendar).</div>
+
+<div class="win"><b>Ch 7 Business and Governance (6):</b> moat = pricing power, brand, switching costs, distribution, regulation, cost advantage. Governance red flags: heavy promoter pledging, big related-party transactions, auditor resignations, poor minority treatment. High promoter holding alone is NOT automatically good.</div>
+
+<div class="win"><b>Ch 4 Research Basics (5):</b> investing = disciplined, valuation-driven. Speculation = different, not automatically illegal. Mosaic theory = building a view from PUBLIC scraps is legal; UPSI is not. Fundamental analysis = economy, industry, company, value. Technical = price and volume. Quantitative = models and screens.</div>
+
+<div class="win"><b>Ch 13 Research Reports (5):</b> a good report = clear thesis + facts + assumptions + valuation + risks + disclosures, in consistent language. A report is NOT just a target price. Official filings beat media chatter as sources. Disclosures are part of quality, not decoration.</div>
+
+<div class="win"><b>Ch 1 RA Profession (1):</b> an RA turns information into an investment view. Sell-side publishes for clients, buy-side feeds internal portfolios. Qualities: independence, neutrality, confidentiality, numbers, writing. Meet management freely, never seek UPSI.</div>
+</div>
+
+<!-- ============ FORMULA WALL ============ -->
+<div class="card" id="wall" style="border-left-color:#b45309">
+<h2>The Formula Wall (tomorrow 8:00 AM, read ONLY this)</h2>
+<div class="tw">
+<table>
+<tr><th>Formula</th><th>Write it</th><th>Tiny example / when</th></tr>
+<tr class="grp"><td colspan="3">Company numbers</td></tr>
+<tr><td>EPS</td><td>PAT / shares</td><td>220 cr / 20 cr = Rs 11</td></tr>
+<tr><td>EBITDA</td><td>PAT + tax + interest + dep + amort</td><td>80+20+10+15 = 125</td></tr>
+<tr><td>Current ratio</td><td>CA / CL</td><td>liquidity</td></tr>
+<tr><td>Quick ratio</td><td>(CA − inventory) / CL</td><td>(200−80)/100 = 1.2</td></tr>
+<tr><td>Debt/Equity</td><td>total debt / net worth</td><td>leverage</td></tr>
+<tr><td>Interest coverage</td><td>EBIT / interest</td><td>120/30 = 4x</td></tr>
+<tr><td>ROE</td><td>PAT / net worth</td><td>owner's return</td></tr>
+<tr><td>ROCE</td><td>EBIT / capital employed</td><td>whole-capital return</td></tr>
+<tr><td>DuPont ROE</td><td>margin x asset turnover x leverage</td><td>10% x 1.2 x 1.5 = 18%</td></tr>
+<tr><td>Inventory days</td><td>365 / inventory turnover</td><td>speed of stock</td></tr>
+<tr class="grp"><td colspan="3">Valuation</td></tr>
+<tr><td>Market cap</td><td>price x shares</td><td>equity only</td></tr>
+<tr><td>Enterprise value</td><td>mcap + debt − cash</td><td>1000+300−100 = 1200</td></tr>
+<tr><td>P/E</td><td>price / EPS</td><td>300/20 = 15x</td></tr>
+<tr><td>PEG</td><td>P/E / growth%</td><td>15/20 = 0.75</td></tr>
+<tr><td>P/B</td><td>price / book value per share</td><td>banks; P/ABV for NBFCs</td></tr>
+<tr><td>EV/EBITDA</td><td>EV / EBITDA</td><td>compare across leverage</td></tr>
+<tr><td>Gordon DDM</td><td>P0 = D1 / (Ke − g)</td><td>D1 = 10.5, 0.07 gives 150. Grow D0 first!</td></tr>
+<tr><td>CAPM</td><td>Ke = Rf + B(Rm − Rf)</td><td>6 + 1.2x6 = 13.2%</td></tr>
+<tr><td>WACC</td><td>KeWe + Kd(1−t)Wd</td><td>8.4 + 3 = 11.4%</td></tr>
+<tr><td>FCFF vs FCFE</td><td>FCFF at WACC, FCFE at Ke</td><td>firm vs equity</td></tr>
+<tr><td>Embedded value</td><td>net worth + PV of existing policies' profits</td><td>LIFE INSURERS</td></tr>
+<tr class="grp"><td colspan="3">Risk and return</td></tr>
+<tr><td>HPR</td><td>(P1 − P0 + D) / P0</td><td>one holding period</td></tr>
+<tr><td>CAGR</td><td>(end/start)^(1/yrs) − 1</td><td>100 to 150, 3y = 14.5%</td></tr>
+<tr><td>Expected return</td><td>sum(prob x return)</td><td>0.5x20+0.3x10+0.2x(−5) = 12%</td></tr>
+<tr><td>Sharpe</td><td>(Rp − Rf) / std dev</td><td>(14−6)/8 = 1.0</td></tr>
+<tr><td>Treynor</td><td>(Rp − Rf) / beta</td><td>same idea, market risk</td></tr>
+<tr><td>Jensen alpha</td><td>actual − CAPM expected</td><td>skill measure</td></tr>
+<tr><td>Real return</td><td>(1+nominal)/(1+inflation) − 1</td><td>12%, 6% gives 5.7%</td></tr>
+<tr class="grp"><td colspan="3">Bonds, actions, commodities, technical</td></tr>
+<tr><td>Current yield</td><td>annual coupon / market price</td><td>8/90 = 8.89%</td></tr>
+<tr><td>TERP</td><td>(old x cum + new x issue) / total</td><td>480/5 = 96</td></tr>
+<tr><td>Hedge contracts</td><td>(ratio x exposure) / lot size</td><td>91.5 MT / 2.5 = 37</td></tr>
+<tr><td>MACD</td><td>12 EMA − 26 EMA, signal 9</td><td>momentum</td></tr>
+<tr><td>RSI</td><td>100 − 100/(1+RS)</td><td>RS=3 gives 75</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ============ TACTICS ============ -->
+<div class="card" id="tactics" style="border-left-color:#b91c1c">
+<h2>In the exam hall</h2>
+<ul>
+  <li><b>Attempt all 100.</b> The math: a blind guess on 4 options earns +0.0625 marks on average (25% chance of +1 beats 75% chance of −0.25). Eliminate ONE option and a guess earns +0.167. A blank always earns exactly 0. Guessing is not bravery, it is arithmetic.</li>
+  <li><b>Two passes.</b> Pass 1: answer the sure ones, mark the rest for review. Pass 2: the marked ones. Average 72 seconds per question, give numericals 2 minutes.</li>
+  <li><b>Caselets</b> (5 stories x 4 questions): read the data table TWICE before question 1. Every caselet hides 1 or 2 easy marks.</li>
+  <li><b>The trader trap:</b> when your chart instinct argues with the workbook, the workbook wins. That is where 2 or 3 marks bled last time.</li>
+  <li><b>Decoys:</b> slow down on NOT and EXCEPT stems, writer vs buyer, gross vs net, right vs obligation, face value vs market price.</li>
+  <li>Tonight: one timed 100-question weighted quiz, then every miss into the mistake notebook. Sleep by 10:30. Tomorrow: this page's Formula Wall at 8:00, at IIRM by 9:15 with PAN and confirmation, nothing new after that.</li>
+</ul>
+</div>
+
+<p class="foot">You wrote the lessons this sheet compresses. The knowledge is in there. Tomorrow, 68 right answers buys the certificate. Go get it.</p>
+
+</div>
+</body>
+</html>
