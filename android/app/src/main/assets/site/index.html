@@ -1,242 +1,440 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NISM Research Analyst Sprint</title>
-  <link rel="stylesheet" href="styles.css">
-  <script>
-    (function () {
-      try {
-        var t = localStorage.getItem("nism-ra-theme-v1");
-        if (!t) {
-          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
-        }
-        if (t === "dark") document.documentElement.setAttribute("data-theme", "dark");
-      } catch (e) {}
-    })();
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NISM RA Mastery Path</title>
+<style>
+  :root{
+    --bg:#f6f7fb; --card:#ffffff; --ink:#17202c; --muted:#617082; --line:#e2e7ef;
+    --brand:#1d4ed8; --brandbg:#eef4ff;
+    --gold:#b45309; --goldbg:#fff7e6;
+    --green:#15803d; --greenbg:#e9f9ee; --greenline:#bfe8cb;
+    --red:#b91c1c; --redbg:#fdefee;
+    --lock:#9aa7b8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e141d; --card:#161f2b; --ink:#e9eef5; --muted:#93a2b5; --line:#25303f;
+      --brand:#7ea8ff; --brandbg:#152039;
+      --gold:#fbbf24; --goldbg:#2a2213;
+      --green:#4ade80; --greenbg:#12281a; --greenline:#1f4128;
+      --red:#f87171; --redbg:#2a1717;
+      --lock:#5b6a7d;
+    }
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{max-width:640px;margin:0 auto;padding:14px 14px 40px}
+  h1{font-size:20px;margin:6px 0}
+  h2{font-size:18px;margin:4px 0 8px}
+  .muted{color:var(--muted);font-size:13px}
+  .row{display:flex;align-items:center;gap:10px}
+  .grow{flex:1}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0}
+  .btn{display:block;width:100%;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer}
+  .btn.primary{background:var(--brand);color:#fff}
+  .btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+  .btn.small{width:auto;padding:8px 14px;font-size:14px;display:inline-block}
+  .chip{display:inline-block;background:var(--brandbg);color:var(--brand);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
+  .chip.gold{background:var(--goldbg);color:var(--gold)}
+  .chip.green{background:var(--greenbg);color:var(--green)}
+  .chap{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:8px 0;cursor:pointer}
+  .chap.locked{opacity:.5}
+  .chap.current{border:2px solid var(--brand)}
+  .chap.solid{border:1px solid var(--greenline);background:var(--greenbg)}
+  .badge{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:none;background:var(--brandbg);color:var(--brand)}
+  .solid .badge{background:var(--green);color:#fff}
+  .locked .badge{background:var(--line);color:var(--lock)}
+  .ct{font-weight:700;font-size:15px;line-height:1.3}
+  .dots{display:flex;gap:5px;margin-top:5px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--line)}
+  .dot.on{background:var(--green)}
+  .dot.now{background:var(--brand)}
+  .stage{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:9px 0;cursor:pointer}
+  .stage.locked{opacity:.5}
+  .stage.done{border-color:var(--greenline)}
+  .sicon{font-size:20px;flex:none;width:28px;text-align:center}
+  .back{background:none;border:0;color:var(--brand);font-size:15px;font-weight:700;padding:6px 0;cursor:pointer}
+  .story{background:var(--goldbg);border-radius:10px;padding:10px 13px;margin:10px 0}
+  .why{background:var(--brandbg);border-radius:10px;padding:10px 13px;margin:10px 0}
+  .exam{background:var(--greenbg);border-radius:10px;padding:10px 13px;margin:10px 0}
+  ul{margin:8px 0 8px 20px;padding:0}
+  li{margin:5px 0}
+  .qtext{font-size:17px;font-weight:600;margin:10px 0 14px}
+  .caselet{background:var(--goldbg);border-radius:10px;padding:10px 13px;margin:0 0 12px;font-size:14px}
+  .opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0;font-size:15px;cursor:pointer}
+  .opt.correct{border-color:var(--green);background:var(--greenbg)}
+  .opt.wrong{border-color:var(--red);background:var(--redbg)}
+  .explain{background:var(--brandbg);border-radius:10px;padding:10px 13px;margin:10px 0;font-size:14px}
+  .scorebig{font-size:44px;font-weight:800;text-align:center;margin:8px 0}
+  .center{text-align:center}
+  .reveal{color:var(--brand);font-weight:600;cursor:pointer}
+  .footer-links{margin-top:18px;text-align:center;font-size:13px}
+  .footer-links a{color:var(--muted);text-decoration:none;margin:0 8px}
+  .pbar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0}
+  .pbar > div{height:100%;background:var(--green)}
+  #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90%;text-align:center}
+</style>
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">RA</div>
-        <div>
-          <div class="brand-name">NISM RA Retake</div>
-          <div class="brand-sub">Exam: Aug 1, 2026 (10:00-12:00)</div>
-        </div>
-      </div>
+<div class="wrap" id="app"></div>
+<div id="toast"></div>
 
-      <a href="story.html" style="display:block;margin:0 0 10px;padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#15803d,#1d4ed8);color:#fff;font-weight:700;text-decoration:none;text-align:center;">Story Mode: Understand First</a>
-      <a href="cram.html" style="display:block;margin:0 0 14px;padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#b45309,#b91c1c);color:#fff;font-weight:700;text-decoration:none;text-align:center;">Exam-Eve Cram Sheet</a>
+<script src="data.js"></script>
+<script src="lessons.js"></script>
+<script>
+(function(){
+"use strict";
+var D = window.STUDY_DATA, L = window.STUDY_LESSONS || {};
+var CH = D.chapters;
+var TIER_PASS = 70, MASTERY_PASS = 80;
+var STAGES = ["learn","t1","t2","t3","m"];
+var STAGE_META = {
+  learn:{name:"Learn the chapter", icon:"📖"},
+  t1:{name:"Level 1: Basics quiz", icon:"🟢"},
+  t2:{name:"Level 2: Applied quiz", icon:"🟡"},
+  t3:{name:"Level 3: Twisted quiz", icon:"🔴"},
+  m:{name:"Mastery gate (80% to unlock next)", icon:"🏆"}
+};
 
-      <nav class="nav" aria-label="Study areas">
-        <button class="nav-button is-active" data-view="dashboard"><span class="mini-icon bars"></span>Dashboard</button>
-        <button class="nav-button" data-view="learn"><span class="mini-icon book"></span>Learn</button>
-        <button class="nav-button" data-view="quiz"><span class="mini-icon check"></span>Quiz</button>
-        <button class="nav-button" data-view="revise"><span class="mini-icon loop"></span>Revise</button>
-        <button class="nav-button" data-view="formulas"><span class="mini-icon sigma"></span>Formulas</button>
-        <button class="nav-button" data-view="mistakes"><span class="mini-icon alert"></span>Mistakes</button>
-      </nav>
+/* ---------- state ---------- */
+var S;
+function fresh(){ return { ch:{}, mistakes:{}, streak:{last:"",count:0}, loc:null }; }
+function load(){
+  try { S = JSON.parse(localStorage.getItem("nism_path_v2")) || fresh(); }
+  catch(e){ S = fresh(); }
+  if(!S.ch) S.ch = {}; if(!S.mistakes) S.mistakes = {}; if(!S.streak) S.streak = {last:"",count:0};
+}
+function save(){ try { localStorage.setItem("nism_path_v2", JSON.stringify(S)); } catch(e){} }
+function chState(n){ if(!S.ch[n]) S.ch[n] = {learn:0, t1:-1, t2:-1, t3:-1, m:-1, solid:false}; return S.ch[n]; }
 
-      <div class="exam-box">
-        <div class="eyebrow">Exam pattern</div>
-        <div class="exam-stat"><strong>100</strong><span>marks</span></div>
-        <div class="exam-lines">
-          <span>80 MCQ + 5 caselets</span>
-          <span>2 hours</span>
-          <span>Pass: 60 marks</span>
-          <span>Wrong: -0.25</span>
-        </div>
-      </div>
-    </aside>
+/* ---------- pools ---------- */
+function pool(ch, tier){
+  var qs = D.questions.filter(function(q){ return q.chapter === ch; });
+  if(tier==="t1") return qs.filter(function(q){ return q.difficulty==="Easy"; });
+  if(tier==="t2") return qs.filter(function(q){ return q.difficulty==="Medium" && !q.caselet; });
+  if(tier==="t3") return qs.filter(function(q){ return q.difficulty==="Hard" || q.caselet; });
+  return qs;
+}
+function masteryPool(ch){
+  var own = pool(ch,"t2").concat(pool(ch,"t3"));
+  if(own.length < 6) own = pool(ch, "all");
+  var review = [];
+  for(var i=1;i<ch;i++){
+    if(chState(i).solid){
+      var p = pool(i,"t2").concat(pool(i,"t3"));
+      if(p.length) review.push(p[Math.floor(Math.random()*p.length)]);
+    }
+  }
+  shuffle(review);
+  return shuffle(own.slice()).slice(0,9).concat(review.slice(0,3));
+}
+function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
 
-    <main class="main">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Weighted prep from your workbook</p>
-          <h1 id="viewTitle">Dashboard</h1>
-        </div>
-        <div class="top-actions">
-          <button class="ghost-button" id="themeToggle" type="button" aria-pressed="false">Dark mode</button>
-          <button class="ghost-button" id="resetProgressBtn" type="button">Reset progress</button>
-          <button class="primary-button" id="quickQuizBtn" type="button">Start weighted quiz</button>
-        </div>
-      </header>
+/* ---------- progression ---------- */
+function stageDone(n, st){
+  var c = chState(n);
+  var mods = (L[n] && L[n].modules) ? L[n].modules.length : 0;
+  if(st==="learn") return mods===0 || c.learn >= mods;
+  if(st==="m") return c.m >= MASTERY_PASS;
+  if(pool(n,st).length===0) return true;           /* empty tier auto-passes */
+  return c[st] >= TIER_PASS;
+}
+function nextStage(n){
+  for(var i=0;i<STAGES.length;i++){ if(!stageDone(n, STAGES[i])) return STAGES[i]; }
+  return null;
+}
+function stageUnlocked(n, st){
+  var idx = STAGES.indexOf(st);
+  for(var i=0;i<idx;i++){ if(!stageDone(n, STAGES[i])) return false; }
+  return true;
+}
+function chapterUnlocked(n){
+  if(n===CH[0].id) return true;
+  return chState(n-1).solid;
+}
+function currentChapter(){
+  for(var i=0;i<CH.length;i++){ if(!chState(CH[i].id).solid) return chapterUnlocked(CH[i].id) ? CH[i].id : CH[i].id-0; }
+  return CH[CH.length-1].id;
+}
+function refreshSolid(n){
+  var c = chState(n);
+  c.solid = STAGES.every(function(st){ return stageDone(n, st); });
+}
 
-      <section class="view is-active" id="dashboardView">
-        <div class="metric-grid">
-          <article class="metric-panel">
-            <span class="metric-label">Days left</span>
-            <strong id="daysLeft">35</strong>
-            <small>Retake plan: 5-week sprint + final mock day.</small>
-          </article>
-          <article class="metric-panel">
-            <span class="metric-label">Completed weight</span>
-            <strong id="completedWeight">0%</strong>
-            <small id="completedChapters">0 of 15 chapters marked done.</small>
-          </article>
-          <article class="metric-panel">
-            <span class="metric-label">Last quiz</span>
-            <strong id="lastQuizScore">--</strong>
-            <small id="lastQuizMeta">No quiz attempted yet.</small>
-          </article>
-          <article class="metric-panel">
-            <span class="metric-label">High-yield target</span>
-            <strong>49</strong>
-            <small>Marks from Technical, Financial, Valuation, Legal.</small>
-          </article>
-        </div>
+/* ---------- streak ---------- */
+function bumpStreak(){
+  var today = new Date().toISOString().slice(0,10);
+  if(S.streak.last === today) return;
+  var y = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+  S.streak.count = (S.streak.last === y) ? S.streak.count + 1 : 1;
+  S.streak.last = today;
+}
 
-        <div class="dashboard-layout">
-          <section class="panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Priority map</p>
-                <h2>Study marks by chapter</h2>
-              </div>
-            </div>
-            <div id="priorityBars" class="weight-bars"></div>
-          </section>
+/* ---------- rendering ---------- */
+var app = document.getElementById("app");
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function toast(msg){
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.style.opacity = 1;
+  setTimeout(function(){ t.style.opacity = 0; }, 2200);
+}
 
-          <section class="panel visual-panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Chapter 15</p>
-                <h2>Technical analysis visual drill</h2>
-              </div>
-            </div>
-            <canvas id="technicalCanvas" width="680" height="310" aria-label="Candlestick and moving average practice chart"></canvas>
-            <div class="legend-row">
-              <span><i class="legend up"></i>Up candles</span>
-              <span><i class="legend down"></i>Down candles</span>
-              <span><i class="legend line"></i>Moving average</span>
-            </div>
-          </section>
-        </div>
+function home(){
+  S.loc = null; save();
+  var solidCount = CH.filter(function(c){ return chState(c.id).solid; }).length;
+  var cur = currentChapter();
+  var nMist = Object.keys(S.mistakes).length;
+  var html = "";
+  html += '<div class="row"><h1 class="grow">Mastery Path</h1>';
+  html += '<span class="chip gold">🔥 ' + S.streak.count + '</span>';
+  html += '<span class="chip green">' + solidCount + '/15 solid</span></div>';
+  html += '<div class="pbar"><div style="width:' + Math.round(solidCount/15*100) + '%"></div></div>';
+  html += '<button class="btn primary" id="continueBtn">Continue: Ch ' + cur + ' · ' + esc(STAGE_META[nextStage(cur)||"m"].name) + '</button>';
+  if(nMist > 0){
+    html += '<div style="height:8px"></div><button class="btn ghost" id="mistBtn">Fix my mistakes (' + nMist + ')</button>';
+  }
+  html += '<div style="height:6px"></div>';
+  CH.forEach(function(c){
+    var st = chState(c.id);
+    var unlocked = chapterUnlocked(c.id);
+    var cls = st.solid ? "solid" : (c.id===cur && unlocked ? "current" : (unlocked ? "" : "locked"));
+    var badge = st.solid ? "✓" : (unlocked ? c.id : "🔒");
+    html += '<div class="chap ' + cls + '" data-ch="' + c.id + '">';
+    html += '<div class="badge">' + badge + '</div>';
+    html += '<div class="grow"><div class="ct">' + esc(c.title) + '</div>';
+    html += '<div class="muted">' + c.weight + ' marks</div>';
+    if(unlocked && !st.solid){
+      html += '<div class="dots">' + STAGES.map(function(s){
+        return '<span class="dot ' + (stageDone(c.id,s) ? "on" : (s===nextStage(c.id) ? "now" : "")) + '"></span>';
+      }).join("") + '</div>';
+    }
+    html += '</div></div>';
+  });
+  html += '<div class="footer-links"><a href="story.html">Story Mode</a><a href="cram.html">Cram Sheet</a><a href="classic.html">Classic app</a></div>';
+  app.innerHTML = html;
+  document.getElementById("continueBtn").onclick = function(){ openStage(cur, nextStage(cur) || "m"); };
+  var mb = document.getElementById("mistBtn");
+  if(mb) mb.onclick = startMistakes;
+  Array.prototype.forEach.call(document.querySelectorAll(".chap"), function(el){
+    el.onclick = function(){
+      var n = parseInt(el.getAttribute("data-ch"), 10);
+      if(!chapterUnlocked(n)){ toast("Locked. Pass the mastery gate of Chapter " + (n-1) + " first."); return; }
+      chapter(n);
+    };
+  });
+  window.scrollTo(0,0);
+}
 
-        <section class="panel" id="todayReviewPanel"></section>
+function chapter(n){
+  var c = CH.filter(function(x){ return x.id===n; })[0];
+  var html = '<button class="back" id="backBtn">‹ Path</button>';
+  html += '<h2>Ch ' + n + ': ' + esc(c.title) + '</h2>';
+  html += '<div class="muted">' + c.weight + ' marks in the exam' + (chState(n).solid ? ' · <b style="color:var(--green)">SOLID ✓</b>' : '') + '</div>';
+  html += '<div style="height:6px"></div>';
+  STAGES.forEach(function(st){
+    var done = stageDone(n, st);
+    var unlocked = stageUnlocked(n, st);
+    var cstate = chState(n);
+    var meta = STAGE_META[st];
+    var sub = "";
+    if(st==="learn"){
+      var mods = (L[n] && L[n].modules) ? L[n].modules.length : 0;
+      sub = mods ? Math.min(cstate.learn, mods) + "/" + mods + " lessons read" : "No lessons yet";
+    } else {
+      var p = pool(n, st==="m" ? "all" : st);
+      if(st!=="m" && p.length===0){ sub = "No questions in this tier yet, auto-passed"; }
+      else sub = (cstate[st]>=0 ? "Best: " + cstate[st] + "%" : "Not attempted") + (st==="m" ? " · need " + MASTERY_PASS + "%" : " · need " + TIER_PASS + "%");
+    }
+    html += '<div class="stage ' + (done ? "done" : "") + " " + (unlocked ? "" : "locked") + '" data-st="' + st + '">';
+    html += '<div class="sicon">' + (done ? "✅" : (unlocked ? meta.icon : "🔒")) + '</div>';
+    html += '<div class="grow"><div class="ct">' + esc(meta.name) + '</div><div class="muted">' + sub + '</div></div>';
+    html += '</div>';
+  });
+  app.innerHTML = html;
+  document.getElementById("backBtn").onclick = home;
+  Array.prototype.forEach.call(document.querySelectorAll(".stage"), function(el){
+    el.onclick = function(){
+      var st = el.getAttribute("data-st");
+      if(!stageUnlocked(n, st)){ toast("Finish the previous step first."); return; }
+      openStage(n, st);
+    };
+  });
+  window.scrollTo(0,0);
+}
 
-        <section class="panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">June 28 to August 1 - 35-day retake sprint</p>
-              <h2>Roadmap</h2>
-            </div>
-          </div>
-          <div id="roadmapList" class="roadmap"></div>
-        </section>
-      </section>
+function openStage(n, st){
+  if(st==="learn") return learn(n);
+  if(st==="m") return quiz(n, "m", masteryPool(n), MASTERY_PASS);
+  var p = pool(n, st);
+  if(p.length===0){ toast("No questions in this tier yet."); return chapter(n); }
+  quiz(n, st, shuffle(p.slice()).slice(0,10), TIER_PASS);
+}
 
-      <section class="view" id="learnView">
-        <div class="learn-layout">
-          <aside class="chapter-rail">
-            <div class="rail-title">Chapters</div>
-            <div id="chapterList" class="chapter-list"></div>
-          </aside>
-          <section class="panel learn-panel">
-            <div id="learnContent"></div>
-          </section>
-        </div>
-      </section>
+/* ---------- learn ---------- */
+function learn(n){
+  var mods = (L[n] && L[n].modules) ? L[n].modules : [];
+  if(!mods.length){ chState(n).learn = 0; save(); toast("No lessons for this chapter yet."); return chapter(n); }
+  var i = Math.min(chState(n).learn, mods.length - 1);
+  renderModule(n, mods, i);
+}
+function renderModule(n, mods, i){
+  var m = mods[i];
+  var html = '<button class="back" id="backBtn">‹ Ch ' + n + '</button>';
+  html += '<div class="muted">Lesson ' + (i+1) + ' of ' + mods.length + '</div>';
+  html += '<div class="pbar"><div style="width:' + Math.round((i)/mods.length*100) + '%"></div></div>';
+  html += '<h2>' + esc(m.title) + '</h2>';
+  if(m.story) html += '<div class="story"><b>Picture this:</b> ' + esc(m.story) + '</div>';
+  if(m.why) html += '<div class="why"><b>Why the exam cares:</b> ' + esc(m.why) + '</div>';
+  if(m.teach && m.teach.length) html += '<ul>' + m.teach.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join("") + '</ul>';
+  if(m.example) html += '<div class="card"><b>Example:</b> ' + esc(m.example) + '</div>';
+  if(m.check && m.check.length){
+    m.check.forEach(function(ck, k){
+      html += '<div class="card"><b>Did you get it?</b> ' + esc(ck.q) + '<div class="reveal" data-k="' + k + '">Tap to reveal answer</div><div class="explain" style="display:none" id="ans' + k + '">' + esc(ck.a) + '</div></div>';
+    });
+  }
+  if(m.exam) html += '<div class="exam"><b>Exam angle:</b> ' + esc(m.exam) + '</div>';
+  html += '<div class="row">';
+  if(i>0) html += '<button class="btn ghost small" id="prevBtn">‹ Back</button>';
+  html += '<div class="grow"></div>';
+  html += '<button class="btn primary small" id="nextBtn">' + (i===mods.length-1 ? "Finish Learn ✓" : "Got it, next ›") + '</button></div>';
+  app.innerHTML = html;
+  document.getElementById("backBtn").onclick = function(){ chapter(n); };
+  Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function(el){
+    el.onclick = function(){ document.getElementById("ans" + el.getAttribute("data-k")).style.display = "block"; el.style.display = "none"; };
+  });
+  var prev = document.getElementById("prevBtn");
+  if(prev) prev.onclick = function(){ renderModule(n, mods, i-1); };
+  document.getElementById("nextBtn").onclick = function(){
+    if(chState(n).learn < i+1){ chState(n).learn = i+1; }
+    save();
+    if(i===mods.length-1){ refreshSolid(n); save(); toast("Learn complete. Level 1 unlocked!"); chapter(n); }
+    else renderModule(n, mods, i+1);
+    window.scrollTo(0,0);
+  };
+  window.scrollTo(0,0);
+}
 
-      <section class="view" id="quizView">
-        <div class="quiz-layout">
-          <section class="panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Practice mode</p>
-                <h2>Quiz setup</h2>
-              </div>
-            </div>
-            <div class="quiz-controls">
-              <label>
-                Chapter
-                <select id="quizChapterSelect"></select>
-              </label>
-              <label>
-                Question count
-                <select id="quizCountSelect">
-                  <option value="10">10</option>
-                  <option value="20" selected>20</option>
-                  <option value="40">40</option>
-                  <option value="100">100 style</option>
-                </select>
-              </label>
-            </div>
-            <div class="button-row">
-              <button class="primary-button" id="startChapterQuizBtn" type="button">Chapter quiz</button>
-              <button class="secondary-button" id="startWeightedQuizBtn" type="button">Weighted quiz</button>
-              <button class="secondary-button" id="startSpacedQuizBtn" type="button">Spaced review</button>
-              <button class="secondary-button" id="startNumericQuizBtn" type="button">Numericals drill</button>
-              <button class="secondary-button" id="startWrongQuizBtn" type="button">Wrong answers</button>
-            </div>
-            <p class="quiz-hint">The real exam has 40+ numerical questions. Drill the maths until it is automatic.</p>
-            <div class="score-rules">
-              <span>Correct: +1</span>
-              <span>Wrong: -0.25</span>
-              <span>Skipped: 0</span>
-            </div>
-          </section>
+/* ---------- quiz ---------- */
+function quiz(n, st, list, passMark){
+  if(!list.length){ toast("No questions available."); return chapter(n); }
+  var i = 0, score = 0;
+  function q1(){
+    var q = list[i];
+    var html = '<button class="back" id="backBtn">‹ Quit</button>';
+    html += '<div class="row"><span class="chip">' + esc(STAGE_META[st] ? STAGE_META[st].name : "Quiz") + '</span><span class="muted grow" style="text-align:right">Q' + (i+1) + '/' + list.length + '</span></div>';
+    if(q.caselet && D.caselets[q.caselet]) html += '<div class="caselet"><b>Case:</b> ' + esc(D.caselets[q.caselet]) + '</div>';
+    html += '<div class="qtext">' + esc(q.question) + '</div>';
+    q.options.forEach(function(o, k){
+      html += '<button class="opt" data-k="' + k + '">' + esc(o) + '</button>';
+    });
+    html += '<div id="fb"></div>';
+    app.innerHTML = html;
+    document.getElementById("backBtn").onclick = function(){ chapter(n); };
+    var answered = false;
+    Array.prototype.forEach.call(document.querySelectorAll(".opt"), function(el){
+      el.onclick = function(){
+        if(answered) return; answered = true;
+        var k = parseInt(el.getAttribute("data-k"),10);
+        var right = k === q.answer;
+        if(right){ score++; el.classList.add("correct"); delete S.mistakes[q.id]; }
+        else {
+          el.classList.add("wrong");
+          document.querySelectorAll(".opt")[q.answer].classList.add("correct");
+          S.mistakes[q.id] = true;
+        }
+        save();
+        var fb = '<div class="explain">' + (right ? "✅ Correct. " : "❌ ") + esc(q.explain || "") + '</div>';
+        fb += '<button class="btn primary" id="nx">' + (i===list.length-1 ? "See result" : "Next ›") + '</button>';
+        document.getElementById("fb").innerHTML = fb;
+        document.getElementById("nx").onclick = function(){
+          i++;
+          if(i < list.length) q1(); else finish();
+        };
+        document.getElementById("nx").scrollIntoView({behavior:"smooth", block:"end"});
+      };
+    });
+    window.scrollTo(0,0);
+  }
+  function finish(){
+    var pct = Math.round(score / list.length * 100);
+    var c = chState(n);
+    if(c[st] === undefined || c[st] < pct) c[st] = pct;
+    bumpStreak(); refreshSolid(n); save();
+    var passed = pct >= passMark;
+    var html = '<div class="center" style="margin-top:30px">';
+    html += '<div class="scorebig">' + pct + '%</div>';
+    html += '<div class="muted">' + score + ' of ' + list.length + ' correct · need ' + passMark + '%</div><div style="height:14px"></div>';
+    if(passed && st==="m" && c.solid){
+      html += '<div class="card"><b>🏆 Chapter ' + n + ' is SOLID.</b> The next chapter is unlocked. This is what real progress feels like.</div>';
+    } else if(passed){
+      html += '<div class="card"><b>✅ Passed.</b> Next level unlocked.</div>';
+    } else {
+      html += '<div class="card"><b>Not yet.</b> Reread the misses below in Mistakes, revisit the lesson if needed, then retry. Repetition is the method, not a punishment.</div>';
+    }
+    html += '<div style="height:8px"></div><button class="btn primary" id="contBtn">' + (passed ? "Continue" : "Retry now") + '</button>';
+    html += '<div style="height:8px"></div><button class="btn ghost" id="chBtn">Back to chapter</button></div>';
+    app.innerHTML = html;
+    document.getElementById("contBtn").onclick = function(){
+      if(passed){ chapter(n); } else { openStage(n, st); }
+    };
+    document.getElementById("chBtn").onclick = function(){ chapter(n); };
+    window.scrollTo(0,0);
+  }
+  q1();
+}
 
-          <section class="panel quiz-panel">
-            <div id="quizStage" class="quiz-stage empty-state">
-              Choose a mode to begin.
-            </div>
-          </section>
-        </div>
-      </section>
+/* ---------- mistakes drill ---------- */
+function startMistakes(){
+  var ids = Object.keys(S.mistakes);
+  if(!ids.length){ toast("No mistakes pending. Clean slate!"); return home(); }
+  var list = D.questions.filter(function(q){ return S.mistakes[q.id]; });
+  shuffle(list);
+  var i = 0, fixed = 0;
+  function q1(){
+    if(i >= list.length){
+      var html = '<div class="center" style="margin-top:30px"><div class="scorebig">' + fixed + '</div><div class="muted">mistakes cleared this round</div><div style="height:14px"></div><button class="btn primary" id="homeBtn">Back to path</button></div>';
+      app.innerHTML = html;
+      document.getElementById("homeBtn").onclick = home;
+      bumpStreak(); save();
+      return;
+    }
+    var q = list[i];
+    var html = '<button class="back" id="backBtn">‹ Quit</button>';
+    html += '<div class="row"><span class="chip gold">Fix-it drill</span><span class="muted grow" style="text-align:right">' + (i+1) + '/' + list.length + '</span></div>';
+    if(q.caselet && D.caselets[q.caselet]) html += '<div class="caselet"><b>Case:</b> ' + esc(D.caselets[q.caselet]) + '</div>';
+    html += '<div class="qtext">' + esc(q.question) + '</div>';
+    q.options.forEach(function(o, k){ html += '<button class="opt" data-k="' + k + '">' + esc(o) + '</button>'; });
+    html += '<div id="fb"></div>';
+    app.innerHTML = html;
+    document.getElementById("backBtn").onclick = home;
+    var answered = false;
+    Array.prototype.forEach.call(document.querySelectorAll(".opt"), function(el){
+      el.onclick = function(){
+        if(answered) return; answered = true;
+        var k = parseInt(el.getAttribute("data-k"),10);
+        var right = k === q.answer;
+        if(right){ fixed++; delete S.mistakes[q.id]; }
+        else { document.querySelectorAll(".opt")[q.answer].classList.add("correct"); }
+        el.classList.add(right ? "correct" : "wrong");
+        save();
+        var fb = '<div class="explain">' + (right ? "✅ Cleared. " : "❌ Stays in the drill. ") + esc(q.explain || "") + '</div>';
+        fb += '<button class="btn primary" id="nx">Next ›</button>';
+        document.getElementById("fb").innerHTML = fb;
+        document.getElementById("nx").onclick = function(){ i++; q1(); };
+        document.getElementById("nx").scrollIntoView({behavior:"smooth", block:"end"});
+      };
+    });
+    window.scrollTo(0,0);
+  }
+  q1();
+}
 
-      <section class="view" id="formulasView">
-        <section class="panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">Numericals</p>
-              <h2>Formula deck</h2>
-            </div>
-            <label class="search-label">
-              <span>Search</span>
-              <input id="formulaSearch" type="search" placeholder="ROE, WACC, RSI">
-            </label>
-          </div>
-          <div id="formulaList" class="formula-grid"></div>
-        </section>
-      </section>
-
-      <section class="view" id="mistakesView">
-        <section class="panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">Weak spots</p>
-              <h2>Question review</h2>
-            </div>
-            <button class="ghost-button" id="clearMistakesBtn" type="button">Clear mistakes</button>
-          </div>
-          <div id="mistakeList" class="mistake-list"></div>
-        </section>
-      </section>
-
-      <section class="view" id="reviseView">
-        <section class="panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">Endless explanatory revision</p>
-              <h2>Revise all chapters</h2>
-            </div>
-            <div class="button-row">
-              <button class="secondary-button" id="reviseOrderBtn" type="button">Study order</button>
-              <button class="secondary-button" id="reviseShuffleBtn" type="button">Shuffle</button>
-            </div>
-          </div>
-          <div id="reviseStage"></div>
-        </section>
-      </section>
-    </main>
-  </div>
-
-  <script src="data.js"></script>
-  <script src="lessons.js"></script>
-  <script src="app.js"></script>
+/* ---------- boot ---------- */
+load();
+home();
+})();
+</script>
 </body>
 </html>
