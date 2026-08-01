@@ -212,11 +212,13 @@ function home(){
     }
     html += '</div></div>';
   });
-  html += '<div class="footer-links"><a href="story.html">Story Mode</a><a href="cram.html">Cram Sheet</a><a href="classic.html">Classic app</a></div>';
+  html += '<div class="footer-links"><a href="story.html">Story Mode</a><a href="cram.html">Cram Sheet</a><a href="#" id="expLink">Export progress</a><a href="classic.html">Classic app</a></div>';
   app.innerHTML = html;
   document.getElementById("continueBtn").onclick = function(){ openStage(cur, nextStage(cur) || "m"); };
   var mb = document.getElementById("mistBtn");
   if(mb) mb.onclick = startMistakes;
+  var ex = document.getElementById("expLink");
+  if(ex) ex.onclick = function(e){ e.preventDefault(); exportView(); };
   Array.prototype.forEach.call(document.querySelectorAll(".chap"), function(el){
     el.onclick = function(){
       var n = parseInt(el.getAttribute("data-ch"), 10);
@@ -429,6 +431,43 @@ function startMistakes(){
     window.scrollTo(0,0);
   }
   q1();
+}
+
+/* ---------- export ---------- */
+function fmtPct(v){ return v >= 0 ? v + "%" : "-"; }
+function exportView(){
+  var lines = ["NISM Mastery Path export, " + new Date().toISOString().slice(0,10), "Streak: " + S.streak.count + " day(s)", ""];
+  CH.forEach(function(c){
+    var st = S.ch[c.id];
+    if(!st) return;
+    var mods = (L[c.id] && L[c.id].modules) ? L[c.id].modules.length : 0;
+    lines.push("Ch " + c.id + " (" + c.title + "): " + (st.solid ? "SOLID" : "in progress") +
+      " | learn " + st.learn + "/" + mods + " | L1 " + fmtPct(st.t1) + " | L2 " + fmtPct(st.t2) +
+      " | L3 " + fmtPct(st.t3) + " | mastery " + fmtPct(st.m));
+  });
+  var mist = D.questions.filter(function(q){ return S.mistakes[q.id]; });
+  lines.push("", "Pending mistakes (" + mist.length + "):");
+  mist.forEach(function(q){ lines.push("[Ch" + q.chapter + " " + q.id + "] " + q.question); });
+  var text = lines.join("\n") + "\n\n---RAW JSON---\n" + JSON.stringify(S);
+  var html = '<button class="back" id="backBtn">‹ Path</button><h2>Export progress</h2>';
+  html += '<p class="muted">Copy this and paste it to Claude. It shows where you are and every question you have wrong, so the next chapters get built around your weak spots.</p>';
+  html += '<button class="btn primary" id="copyBtn">Copy to clipboard</button><div style="height:8px"></div>';
+  html += '<textarea id="expBox" readonly style="width:100%;height:320px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px"></textarea>';
+  app.innerHTML = html;
+  document.getElementById("expBox").value = text;
+  document.getElementById("backBtn").onclick = home;
+  document.getElementById("copyBtn").onclick = function(){
+    var box = document.getElementById("expBox");
+    box.focus(); box.select(); box.setSelectionRange(0, 999999);
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch(e){}
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(box.value).then(function(){ toast("Copied!"); }, function(){ toast(ok ? "Copied!" : "Long-press the text to copy"); });
+    } else {
+      toast(ok ? "Copied!" : "Long-press the text to copy");
+    }
+  };
+  window.scrollTo(0,0);
 }
 
 /* ---------- boot ---------- */
