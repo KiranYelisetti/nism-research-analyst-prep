@@ -100,11 +100,11 @@ var STAGE_META = {
 
 /* ---------- state ---------- */
 var S;
-function fresh(){ return { ch:{}, mistakes:{}, streak:{last:"",count:0}, loc:null }; }
+function fresh(){ return { ch:{}, mistakes:{}, hist:{}, streak:{last:"",count:0}, loc:null }; }
 function load(){
   try { S = JSON.parse(localStorage.getItem("nism_path_v2")) || fresh(); }
   catch(e){ S = fresh(); }
-  if(!S.ch) S.ch = {}; if(!S.mistakes) S.mistakes = {}; if(!S.streak) S.streak = {last:"",count:0};
+  if(!S.ch) S.ch = {}; if(!S.mistakes) S.mistakes = {}; if(!S.hist) S.hist = {}; if(!S.streak) S.streak = {last:"",count:0};
 }
 function save(){ try { localStorage.setItem("nism_path_v2", JSON.stringify(S)); } catch(e){} }
 function chState(n){ if(!S.ch[n]) S.ch[n] = {learn:0, t1:-1, t2:-1, t3:-1, m:-1, solid:false}; return S.ch[n]; }
@@ -131,6 +131,27 @@ function masteryPool(ch){
   return shuffle(own.slice()).slice(0,9).concat(review.slice(0,3));
 }
 function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+
+/* spaced repetition: every quiz carries up to 2 "Revisit" questions */
+function epochDay(){ return Math.floor(Date.now()/86400000); }
+function markHist(id, right){
+  var h = S.hist[id] || {last:0, ok:0};
+  h.last = epochDay(); h.ok = right ? h.ok + 1 : 0;
+  S.hist[id] = h;
+}
+function withRevisits(base){
+  var ids = {}; base.forEach(function(q){ ids[q.id] = 1; });
+  var today = epochDay();
+  var cand = D.questions.filter(function(q){
+    if(ids[q.id]) return false;
+    if(S.mistakes[q.id]) return true;
+    var h = S.hist[q.id];
+    return !!h && (today - h.last) >= 2;
+  });
+  shuffle(cand);
+  cand.sort(function(a,b){ return (S.mistakes[b.id] ? 1 : 0) - (S.mistakes[a.id] ? 1 : 0); });
+  return base.concat(cand.slice(0,2).map(function(q){ var c = Object.create(q); c.rev = true; return c; }));
+}
 
 /* ---------- progression ---------- */
 function stageDone(n, st){
@@ -271,7 +292,7 @@ function openStage(n, st){
   if(st==="m") return quiz(n, "m", masteryPool(n), MASTERY_PASS);
   var p = pool(n, st);
   if(p.length===0){ toast("No questions in this tier yet."); return chapter(n); }
-  quiz(n, st, shuffle(p.slice()).slice(0,10), TIER_PASS);
+  quiz(n, st, withRevisits(shuffle(p.slice()).slice(0,10)), TIER_PASS);
 }
 
 /* ---------- learn ---------- */
@@ -322,10 +343,11 @@ function renderModule(n, mods, i){
 function quiz(n, st, list, passMark){
   if(!list.length){ toast("No questions available."); return chapter(n); }
   var i = 0, score = 0;
+  var baseTotal = list.filter(function(x){ return !x.rev; }).length;
   function q1(){
     var q = list[i];
     var html = '<button class="back" id="backBtn">‹ Quit</button>';
-    html += '<div class="row"><span class="chip">' + esc(STAGE_META[st] ? STAGE_META[st].name : "Quiz") + '</span><span class="muted grow" style="text-align:right">Q' + (i+1) + '/' + list.length + '</span></div>';
+    html += '<div class="row"><span class="chip">' + esc(STAGE_META[st] ? STAGE_META[st].name : "Quiz") + '</span>' + (q.rev ? '<span class="chip gold">🔁 Revisit</span>' : '') + '<span class="muted grow" style="text-align:right">Q' + (i+1) + '/' + list.length + '</span></div>';
     if(q.caselet && D.caselets[q.caselet]) html += '<div class="caselet"><b>Case:</b> ' + esc(D.caselets[q.caselet]) + '</div>';
     html += '<div class="qtext">' + esc(q.question) + '</div>';
     q.options.forEach(function(o, k){
@@ -340,12 +362,13 @@ function quiz(n, st, list, passMark){
         if(answered) return; answered = true;
         var k = parseInt(el.getAttribute("data-k"),10);
         var right = k === q.answer;
-        if(right){ score++; el.classList.add("correct"); delete S.mistakes[q.id]; }
+        if(right){ if(!q.rev) score++; el.classList.add("correct"); delete S.mistakes[q.id]; }
         else {
           el.classList.add("wrong");
           document.querySelectorAll(".opt")[q.answer].classList.add("correct");
           S.mistakes[q.id] = true;
         }
+        markHist(q.id, right);
         save();
         var fb = '<div class="explain">' + (right ? "✅ Correct. " : "❌ ") + esc(q.explain || "") + '</div>';
         fb += '<button class="btn primary" id="nx">' + (i===list.length-1 ? "See result" : "Next ›") + '</button>';
@@ -360,14 +383,14 @@ function quiz(n, st, list, passMark){
     window.scrollTo(0,0);
   }
   function finish(){
-    var pct = Math.round(score / list.length * 100);
+    var pct = Math.round(score / (baseTotal || list.length) * 100);
     var c = chState(n);
     if(c[st] === undefined || c[st] < pct) c[st] = pct;
     bumpStreak(); refreshSolid(n); save();
     var passed = pct >= passMark;
     var html = '<div class="center" style="margin-top:30px">';
     html += '<div class="scorebig">' + pct + '%</div>';
-    html += '<div class="muted">' + score + ' of ' + list.length + ' correct · need ' + passMark + '%</div><div style="height:14px"></div>';
+    html += '<div class="muted">' + score + ' of ' + (baseTotal || list.length) + ' scored correct (revisits not counted) · need ' + passMark + '%</div><div style="height:14px"></div>';
     if(passed && st==="m" && c.solid){
       html += '<div class="card"><b>🏆 Chapter ' + n + ' is SOLID.</b> The next chapter is unlocked. This is what real progress feels like.</div>';
     } else if(passed){
@@ -420,6 +443,7 @@ function startMistakes(){
         if(right){ fixed++; delete S.mistakes[q.id]; }
         else { document.querySelectorAll(".opt")[q.answer].classList.add("correct"); }
         el.classList.add(right ? "correct" : "wrong");
+        markHist(q.id, right);
         save();
         var fb = '<div class="explain">' + (right ? "✅ Cleared. " : "❌ Stays in the drill. ") + esc(q.explain || "") + '</div>';
         fb += '<button class="btn primary" id="nx">Next ›</button>';
