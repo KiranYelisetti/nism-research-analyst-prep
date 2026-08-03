@@ -181,7 +181,8 @@ function currentChapter(){
 }
 function refreshSolid(n){
   var c = chState(n);
-  c.solid = STAGES.every(function(st){ return stageDone(n, st); });
+  /* ratchet: new harder content added later can never retro-lock a solid chapter */
+  if(!c.solid) c.solid = STAGES.every(function(st){ return stageDone(n, st); });
 }
 
 /* ---------- streak ---------- */
